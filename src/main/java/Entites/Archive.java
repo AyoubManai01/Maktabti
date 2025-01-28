@@ -1,6 +1,7 @@
 package Entites;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class Archive {
     private List<BookLending> pastLendings;
