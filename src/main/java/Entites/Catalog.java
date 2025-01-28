@@ -3,7 +3,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class Catalog {
+public class Catalog implements Search {
     public Date creationDate;
     public int totalBooks;
     public Map<String, List> bookTitles;
@@ -69,4 +69,21 @@ public class Catalog {
     public void setBookPublicationDates(Map<Date, List> bookPublicationDates) {
         this.bookPublicationDates = bookPublicationDates;
     }
+
+    public Map<String, List> searchByTitle(String title){
+        return bookTitles;
+        // TO DO
+    };
+    public Map<String, List> searchByAuthors(String title){
+        return bookAuthors;
+        // TO DO
+    };
+    public Map<String, List> searchBySubject(String title){
+        return bookSubjects;
+        // TO DO
+    };
+    public Map<Date, List> searchByPubDate(Date datetime){
+        return bookPublicationDates;
+        // TO DO
+    };
 }
