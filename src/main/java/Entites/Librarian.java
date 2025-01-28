@@ -6,20 +6,20 @@ public class Librarian extends Account {
         super(id, password, status, person);
     }
 
-    public boolean addBookItem(BookItem book) {
+    public boolean addBookItem(Book book) {
         // Simulate adding a book to the library system
         System.out.println("Book added to system: " + book.getTitle());
         return true;
     }
 
     public boolean blockMember(Member member) {
-        member.setStatus(AccountStatus.BLOCKED);
+        member.setStatus(AccountStatus.Closed);
         System.out.println("Member " + member.getPerson().getName() + " has been blocked.");
         return true;
     }
 
     public boolean unblockMember(Member member) {
-        member.setStatus(AccountStatus.ACTIVE);
+        member.setStatus(AccountStatus.Active);
         System.out.println("Member " + member.getPerson().getName() + " has been unblocked.");
         return true;
     }
