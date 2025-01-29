@@ -2,20 +2,21 @@ package Entites;
 
 import java.util.Date;
 
-class FineTransaction extends Fines {
-    private Date creationDate;
+public class FineTransaction {
+    protected double amount;
+    protected Date creationDate;
 
-    public FineTransaction(double amount, Date creationDate) {
-        super(amount);
-        this.creationDate = creationDate;
+    public FineTransaction(double amount) {
+        this.creationDate = new Date(); // Automatically set current date
+        this.amount = amount;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public double getAmount() {
+        return amount;
     }
 
     public boolean initiateTransaction() {
-
-        return true;
+        System.out.println("Processing fine transaction of $" + amount);
+        return amount > 0; // Basic validation
     }
 }
