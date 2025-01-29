@@ -1,10 +1,6 @@
 package Services;
-
 import Entites.Account;
-
-
 import java.util.List;
-
 public class DeleteAccountService  {
     private List<Account> accounts;
 

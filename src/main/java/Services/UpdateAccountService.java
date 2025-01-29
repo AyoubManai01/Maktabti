@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class UpdateAccountService {
-    private List<Account> accounts;
+    private List<Account> accounts; /*to do add requet of the table */
 
     public UpdateAccountService(List<Account> accounts) {
         this.accounts = accounts;
