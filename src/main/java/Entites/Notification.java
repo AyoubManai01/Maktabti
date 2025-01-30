@@ -1,10 +1,14 @@
 package Entites;
 import java.util.Date;
 
-class Notification {
-    private int notificationId;
-    private Date createdOn;
+public class Notification {
+    public int notificationId;
+    public Date createdOn;
     private String content;
+
+    public int getNotificationId() {
+        return notificationId;
+    }
 
     public Notification(int notificationId, Date createdOn, String content) {
         this.notificationId = notificationId;

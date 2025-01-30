@@ -1,7 +1,7 @@
 package Entites;
 import java.util.Date;
 
-class EmailNotification extends Notification {
+public class EmailNotification extends Notification {
     private String email;
 
     public EmailNotification(int notificationId, Date createdOn, String content, String email) {
