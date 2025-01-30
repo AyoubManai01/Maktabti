@@ -3,24 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.LandingPage"
-            prefWidth="600" prefHeight="400" style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E);"
+            prefWidth="650" prefHeight="450"
+            style="-fx-background-color: linear-gradient(to bottom, #1E1E2F, #3A3A55);"
             stylesheets="@styles.css">
 
-    <VBox alignment="CENTER" spacing="20" layoutX="150" layoutY="80" prefWidth="300">
+    <VBox alignment="CENTER" spacing="25" layoutX="150" layoutY="90" prefWidth="350">
 
-        <!-- Title -->
-        <Text text="Library Management System" fill="white"
-              style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial';"/>
+        <!-- Title with Neon Glow -->
+        <Text text="Library Management System" fill="#E0E0E0"
+              style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-font-family: 'Arial';
+                     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 10, 0.5, 0, 0);"/>
 
-        <!-- Sign-in and Sign-up Buttons -->
-        <Button text="Sign in as Admin" fx:id="adminSignInBtn" styleClass="fancy-button"/>
-        <Button text="Sign in as Member" fx:id="memberSignInBtn" styleClass="fancy-button"/>
-        <Button text="Sign up as Member" fx:id="memberSignUpBtn" styleClass="fancy-button"/>
+        <!-- Frosted Glass Buttons -->
+        <Button text="Sign in as Admin" fx:id="adminSignInBtn" styleClass="glass-button"/>
+        <Button text="Sign in as Member" fx:id="memberSignInBtn" styleClass="glass-button"/>
+        <Button text="Sign up as Member" fx:id="memberSignUpBtn" styleClass="glass-button"/>
     </VBox>
 </AnchorPane>
