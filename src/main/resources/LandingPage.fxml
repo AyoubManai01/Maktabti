@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import Controllers.LandingPage.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.LandingPage"
+            prefWidth="500" prefHeight="350" style="-fx-background-color: #2C3E50;"
+            stylesheets="@styles.css">
+
+    <VBox alignment="CENTER" spacing="20" layoutX="100" layoutY="50" prefWidth="300">
+        <Text text="Library Management System" fill="white"
+              style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+        <Button text="Sign in as Admin" fx:id="adminSignInBtn" styleClass="fancy-button"/>
+        <Button text="Sign in as Member" fx:id="memberSignInBtn" styleClass="fancy-button"/>
+        <Button text="Sign up as Member" fx:id="memberSignUpBtn" styleClass="fancy-button"/>
+    </VBox>
+</AnchorPane>
