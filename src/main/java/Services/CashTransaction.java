@@ -1,9 +1,8 @@
 package Services;
-
 import Entites.FineTransaction;
 
 class CashTransaction extends FineTransaction {
-    private double cashTendered;
+    private final double cashTendered;
 
     public CashTransaction(double amount, double cashTendered) {
         super(amount);

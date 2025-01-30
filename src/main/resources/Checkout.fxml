@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.checkoutController">
+
+    <VBox spacing="15" alignment="CENTER" prefWidth="400" prefHeight="500">
+        <Label text="Book Checkout" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <!-- Book Details Section -->
+        <GridPane hgap="10" vgap="10">
+            <Label text="Book Title:" />
+            <TextField fx:id="bookTitleField" editable="false"/>
+
+            <Label text="Author:" />
+            <TextField fx:id="authorField" editable="false"/>
+
+            <Label text="ISBN:" />
+            <TextField fx:id="isbnField" editable="false"/>
+        </GridPane>
+
+        <!-- Member Details Section -->
+        <GridPane hgap="10" vgap="10">
+            <Label text="Member ID:" />
+            <TextField fx:id="memberIdField"/>
+
+            <Label text="Member Name:" />
+            <TextField fx:id="memberNameField"/>
+        </GridPane>
+
+        <!-- Checkout Options -->
+        <GridPane hgap="10" vgap="10">
+            <Label text="Due Date:" />
+            <DatePicker fx:id="dueDatePicker"/>
+        </GridPane>
+
+        <!-- Action Buttons -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Cancel" fx:id="cancelButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+            <Button text="Confirm Checkout" fx:id="checkoutButton" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+
+</AnchorPane>
