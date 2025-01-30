@@ -4,16 +4,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
-<?import Controllers.LandingPage.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.LandingPage"
-            prefWidth="500" prefHeight="350" style="-fx-background-color: #2C3E50;"
+            prefWidth="600" prefHeight="400" style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E);"
             stylesheets="@styles.css">
 
-    <VBox alignment="CENTER" spacing="20" layoutX="100" layoutY="50" prefWidth="300">
-        <Text text="Library Management System" fill="white"
-              style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <VBox alignment="CENTER" spacing="20" layoutX="150" layoutY="80" prefWidth="300">
 
+        <!-- Title -->
+        <Text text="Library Management System" fill="white"
+              style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial';"/>
+
+        <!-- Sign-in and Sign-up Buttons -->
         <Button text="Sign in as Admin" fx:id="adminSignInBtn" styleClass="fancy-button"/>
         <Button text="Sign in as Member" fx:id="memberSignInBtn" styleClass="fancy-button"/>
         <Button text="Sign up as Member" fx:id="memberSignUpBtn" styleClass="fancy-button"/>
