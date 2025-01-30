@@ -1,7 +1,7 @@
 package Services;
 
 import Entites.Notification;
-import Entites.EmailNotification
+import Entites.EmailNotification;
 import Entites.PostalNotification;
 import java.util.*;
 
