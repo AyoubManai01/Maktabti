@@ -1,15 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import Controllers.AddBook.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.AddBook"
             prefHeight="400.0" prefWidth="600.0">
 
+    <!-- Background Image -->
+    <ImageView fitWidth="600" fitHeight="400" preserveRatio="false">
+        <image>
+            <Image url="@Library.png"/>
+        </image>
+    </ImageView>
+
+    <!-- Semi-transparent overlay for readability -->
+    <Rectangle width="600" height="400"
+               fill="rgba(0, 0, 0, 0.4)"/>
+
+    <!-- Container for the form -->
+    <VBox alignment="CENTER" spacing="15" layoutX="100" layoutY="50" prefWidth="400">
+
+        <!-- Title -->
+        <Text text="Add a New Book" fill="white"
+              style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial';
+                     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 10, 0.5, 0, 0);"/>
+
+        <!-- Form Fields -->
+        <GridPane hgap="10" vgap="15">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints halignment="LEFT"/>
+            </columnConstraints>
+
+            <Label text="Title:" textFill="white"/>
+            <TextField fx:id="titleField" prefWidth="250"/>
+
+            <Label text="Author:" textFill="white"/>
+            <TextField fx:id="authorField" prefWidth="250"/>
+
+            <Label text="ISBN:" textFill="white"/>
+            <TextField fx:id="isbnField" prefWidth="250"/>
+
+            <Label text="Category:" textFill="white"/>
+            <ComboBox fx:id="categoryBox" prefWidth="250"/>
+        </GridPane>
+
+        <!-- Buttons -->
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Add Book" fx:id="addBookBtn" styleClass="glass-button"/>
+            <Button text="Cancel" fx:id="cancelBtn" styleClass="glass-button"/>
+        </HBox>
+
+    </VBox>
 </AnchorPane>
