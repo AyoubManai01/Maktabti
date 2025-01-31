@@ -1,22 +1,21 @@
 package Services;
-import Entites.Account;
-import java.util.List;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateAccountService {
-    private List<Account> accounts;
 
-    public CreateAccountService(List<Account> accounts) {
-        this.accounts = accounts;
+    private static final Map<String, String> userDatabase = new HashMap<>(); // Simulating a database
+
+    public boolean isValidUser(String username, String password) {
+        return userDatabase.containsKey(username) && userDatabase.get(username).equals(password);
     }
 
-    public boolean createAccount(Account account) {
-        if (accounts.stream().noneMatch(a -> a.getId().equals(account.getId()))) {
-            accounts.add(account);
-            System.out.println("Account created: " + account.getId());
-            return true;
+    public boolean createMemberAccount(String username, String password) {
+        if (userDatabase.containsKey(username)) {
+            return false; // Username already exists
         }
-        System.out.println("Account creation failed. ID already exists.");
-        return false;
+        userDatabase.put(username, password); // Store new user
+        return true;
     }
 }
-

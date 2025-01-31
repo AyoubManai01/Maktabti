@@ -11,7 +11,7 @@ public class LandingPage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/resources/LandingPage.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/LandingPage.fxml")); // Ensure correct path
             Scene scene = new Scene(root);
             primaryStage.setTitle("Library Management System");
             primaryStage.setScene(scene);

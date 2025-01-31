@@ -1,14 +1,35 @@
-.fancy-button {
-    -fx-background-color: #3498db;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
+/* Frosted Glass Button */
+.glass-button {
+    -fx-background-color: rgba(255, 255, 255, 0.15);  /* Transparent white */
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
+    -fx-padding: 12 25;
+    -fx-border-radius: 30;
     -fx-background-radius: 30;
-    -fx-padding: 10 20;
+    -fx-border-color: rgba(255, 255, 255, 0.3);
+    -fx-border-width: 1.5;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.1), 5, 0, 2, 2);
+    -fx-transition: all 0.3s ease-in-out;
 }
 
-.fancy-button:hover {
-    -fx-background-color: #2980b9;
+/* Hover Effect: Subtle 3D lift */
+.glass-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-text-fill: white;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Pressed Effect: Makes it look interactive */
+.glass-button:pressed {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Neon Glow Effect for Title */
+.text {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 10, 0.5, 0, 0);
 }
