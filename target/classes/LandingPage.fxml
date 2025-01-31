@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.LandingPageController"
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.LandingPage"
             prefWidth="650" prefHeight="450"
-            style="-fx-background-color: linear-gradient(to bottom, #1E1E2F, #3A3A55);">
+            stylesheets="@styles.css">
 
-    <VBox alignment="CENTER" spacing="25" layoutX="150" layoutY="90" prefWidth="350">
 
-        <Text text="Library Management System" fill="#E0E0E0"
-              style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-font-family: 'Arial';
-                     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 10, 0.5, 0, 0);"/>
+    <!-- StackPane to layer elements -->
+    <StackPane prefWidth="650" prefHeight="450">
 
-        <Button text="Sign in as Admin" fx:id="adminSignInBtn" onAction="#handleAdminSignIn"/>
-        <Button text="Sign in as Member" fx:id="memberSignInBtn"/>
-        <Button text="Sign up as Member" fx:id="memberSignUpBtn" onAction="#handleMemberSignUp"/>
-    </VBox>
+        <!-- Background Image -->
+        <ImageView fitWidth="650" fitHeight="450" preserveRatio="false">
+            <image>
+                <Image url="@Library.png"/>
+            </image>
+        </ImageView>
+
+        <!-- Semi-transparent overlay -->
+        <Pane style="-fx-background-color: rgba(0, 0, 0, 0.5);" prefWidth="650" prefHeight="450"/>
+
+        <!-- Main UI -->
+        <VBox alignment="CENTER" spacing="25" prefWidth="350">
+
+            <!-- Title with Neon Glow -->
+            <Text text="Library Management System" fill="white"
+                  style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-font-family: 'Arial';
+                 -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 10, 0.5, 0, 0);"/>
+
+            <!-- Enhanced Buttons -->
+            <Button text="Sign in as Admin" fx:id="adminSignInBtn" styleClass="glass-button"/>
+            <Button text="Sign in as Member" fx:id="memberSignInBtn" styleClass="glass-button"/>
+            <Button text="Sign up as Member" fx:id="memberSignUpBtn" styleClass="glass-button"/>
+
+        </VBox>
+
+
+    </StackPane>
+
 </AnchorPane>
-
