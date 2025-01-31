@@ -1,12 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+    <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.checkoutController"
+                stylesheets="@styles.css">
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.checkoutController">
+        <VBox spacing="15" alignment="CENTER" prefWidth="600" prefHeight="500" styleClass="vbox-container">
 
-    <VBox spacing="15" alignment="CENTER" prefWidth="600" prefHeight="500">
+
+          style="-fx-background-color: rgba(255, 255, 255, 0.85); -fx-padding: 20px; -fx-background-radius: 10px;">
 
         <Label text="Checkout Page" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
