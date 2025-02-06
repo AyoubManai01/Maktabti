@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" styleClass="login-root">
-    <children>
-        <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
-            <children>
-                <Label text="Maktabti Login" styleClass="login-title" />
-                <TextField fx:id="usernameField" promptText="Username" />
-                <PasswordField fx:id="passwordField" promptText="Password" />
-                <Button text="Login" onAction="#handleLogin" styleClass="login-button"/>
-                <Label fx:id="errorLabel" textFill="red"/>
-            </children>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" prefWidth="500" prefHeight="600" style="-fx-background-color: linear-gradient(to bottom, #1E1E1E, #333333);">
+    <VBox alignment="CENTER" spacing="20" layoutX="50" layoutY="100" prefWidth="400" prefHeight="400" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100">
+
+        <Label text="Maktabti" style="-fx-font-size: 48px; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+        <VBox spacing="15" alignment="CENTER" style="-fx-background-color: #2E2E2E; -fx-padding: 30px; -fx-background-radius: 10px;">
+            <TextField fx:id="usernameField" promptText="Username" style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
+            <PasswordField fx:id="passwordField" promptText="Password" style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
+
+            <Button text="Login" fx:id="loginButton" onAction="#handleLogin" style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" />
         </VBox>
-    </children>
+    </VBox>
 </AnchorPane>
