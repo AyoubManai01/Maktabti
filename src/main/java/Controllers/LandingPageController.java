@@ -1,33 +1,47 @@
 package Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LandingPageController {
 
     @FXML
-    private void handleAdminSignIn() {
-        switchScene(); // Navigate to login page
+    private Button memberSignInBtn; // Injected from FXML
+
+    @FXML
+    private void handleAdminSignIn(ActionEvent event) {
+        switchScene("/AccountSignUpIn.fxml"); // Navigate to admin login page
     }
 
     @FXML
-    private void handleMemberSignUp() {
-        switchScene(); // Navigate to sign-up page
+    private void handleMemberSignUp(ActionEvent event) {
+        switchScene("/AccountSignUpIn.fxml"); // Navigate to member sign-up page
     }
 
-    private void switchScene() {
+    @FXML
+    private void handleMemberSignIn(ActionEvent event) {
+        switchScene("/MemberLogin.fxml"); // Navigate to member login page
+    }
+
+    private void switchScene(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/" + "AccountSignUpIn.fxml"));
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
-            Stage stage = (Stage) root.getScene().getWindow(); // Get current stage
+
+            // Get the current stage (window)
+            Stage stage = (Stage) memberSignInBtn.getScene().getWindow(); // Use any button's scene to get the stage
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Error loading FXML file: " + fxmlPath);
         }
     }
 }

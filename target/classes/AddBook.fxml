@@ -9,25 +9,28 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="Controllers.AddBook"
-            prefHeight="400.0" prefWidth="600.0">
+            prefWidth="650" prefHeight="450"
+            stylesheets="@styles.css">
 
     <!-- Background Image -->
-    <ImageView fitWidth="600" fitHeight="400" preserveRatio="false">
+    <ImageView fitWidth="650" fitHeight="450" preserveRatio="false">
         <image>
-            <Image url="@Library.png"/>
+            <Image url="@Book.jpg"/>
         </image>
     </ImageView>
 
     <!-- Semi-transparent overlay for readability -->
-    <Rectangle width="600" height="400"
-               fill="rgba(0, 0, 0, 0.4)"/>
+    <Pane layoutX="0" layoutY="0" prefWidth="650" prefHeight="450"
+          style="-fx-background-color: rgba(0, 0, 0, 0.5);"/>
 
-    <!-- Container for the form -->
-    <VBox alignment="CENTER" spacing="15" layoutX="100" layoutY="50" prefWidth="400">
+    <!-- Main container -->
+    <VBox alignment="CENTER" spacing="20" prefWidth="400" prefHeight="330"
+          AnchorPane.topAnchor="60" AnchorPane.bottomAnchor="60"
+          AnchorPane.leftAnchor="125" AnchorPane.rightAnchor="125">
 
         <!-- Title -->
         <Text text="Add a New Book" fill="white"
-              style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-font-family: 'Arial';
+              style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-font-family: 'Arial';
                      -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 10, 0.5, 0, 0);"/>
 
         <!-- Form Fields -->

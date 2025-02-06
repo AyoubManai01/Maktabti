@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.Text?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AccountSignUpIn"
             prefWidth="400" prefHeight="300" style="-fx-background-color: #2C3E50;">
-
     <VBox alignment="CENTER" spacing="15" layoutX="75" layoutY="50" prefWidth="250">
-
         <Text text="Login / Sign Up" fill="#FFFFFF" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
-
         <TextField fx:id="usernameField" promptText="Username"/>
         <PasswordField fx:id="passwordField" promptText="Password"/>
-
         <Text fx:id="errorMessage" fill="red"/> <!-- Error message display -->
-
         <Button text="Sign In" fx:id="signInBtn" onAction="#handleSignIn" styleClass="glass-button"/>
         <Button text="Sign Up" fx:id="signUpBtn" onAction="#handleSignUp" styleClass="glass-button"/>
     </VBox>
 </AnchorPane>
-
