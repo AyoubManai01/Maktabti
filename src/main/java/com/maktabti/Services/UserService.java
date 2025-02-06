@@ -2,12 +2,12 @@ package com.maktabti.Services;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Utils.DBUtil;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection conn = DBUtil.getConnection()) {
@@ -28,7 +28,8 @@ public class UserService {
 
     public void addUser(User user) {
         try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+            PreparedStatement ps = conn.prepareStatement(
+                    "INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getRole());
@@ -38,6 +39,20 @@ public class UserService {
         }
     }
 
+    // New method to remove a user by id
+    public boolean removeUser(int userId) {
+        try (Connection conn = DBUtil.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?");
+            ps.setInt(1, userId);
+            int affected = ps.executeUpdate();
+            return affected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Authentication method remains unchanged.
     public User authenticate(String username, String password) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");

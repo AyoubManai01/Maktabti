@@ -11,6 +11,7 @@ com\maktabti\Controllers\BorrowReturnController.class
 com\maktabti\Controllers\LoginController.class
 com\maktabti\Services\UserService.class
 com\maktabti\Services\BookService.class
+com\maktabti\Utils\Session.class
 com\maktabti\Controllers\OrderBookController.class
 com\maktabti\Controllers\UserController.class
 com\maktabti\Controllers\BookController.class

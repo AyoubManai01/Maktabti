@@ -2,14 +2,13 @@ package com.maktabti.Controllers;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
+import com.maktabti.Utils.Session;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 
 public class LoginController {
     @FXML private TextField usernameField;
@@ -25,9 +24,13 @@ public class LoginController {
 
         User user = userService.authenticate(username, password);
         if (user != null) {
+            // Save the logged-in user in the session.
+            Session.setCurrentUser(user);
+
             try {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 Parent root;
+                // Load different interfaces based on the user role.
                 if ("admin".equals(user.getRole())) {
                     root = FXMLLoader.load(getClass().getResource("/AdminMain.fxml"));
                 } else {

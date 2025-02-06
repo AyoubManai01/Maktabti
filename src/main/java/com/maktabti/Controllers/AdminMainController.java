@@ -15,7 +15,7 @@ public class AdminMainController {
         showBooks(); // Default view
     }
 
-    @FXML public void showBooks() { loadContent("/BookPane.fxml"); }
+    @FXML public void showBooks() { loadContent("/AdminBookPane.fxml"); }
     @FXML public void showUsers() { loadContent("/UserPane.fxml"); }
     @FXML public void showTransactions() { loadContent("/TransactionPane.fxml"); }
     @FXML public void showSubscriptions() { loadContent("/SubscriptionPane.fxml"); }

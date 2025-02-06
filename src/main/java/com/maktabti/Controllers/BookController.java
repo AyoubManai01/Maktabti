@@ -5,12 +5,7 @@ import com.maktabti.Services.BookService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import javafx.scene.control.*;
 
 public class BookController {
     @FXML private TableView<Book> bookTable;
@@ -20,6 +15,18 @@ public class BookController {
     @FXML private TableColumn<Book, String> isbnColumn;
     @FXML private TableColumn<Book, Integer> copiesColumn;
     @FXML private TextField searchField;
+
+    // Admin-only fields for adding a new book.
+    @FXML
+    private TextField titleField;
+    @FXML
+    private TextField authorField;
+    @FXML
+    private TextField isbnField;
+    @FXML
+    private TextField copiesField;
+    @FXML
+    private TextField searchFieldA;
 
     private BookService bookService = new BookService();
     private ObservableList<Book> bookList = FXCollections.observableArrayList();
@@ -43,13 +50,63 @@ public class BookController {
     @FXML
     public void searchBooks() {
         String query = searchField.getText().trim().toLowerCase();
-        List<Book> filtered = bookService.getAllBooks().stream()
-                .filter(b -> b.getTitle().toLowerCase().contains(query) ||
-                        b.getAuthor().toLowerCase().contains(query) ||
-                        b.getIsbn().toLowerCase().contains(query))
-                .collect(Collectors.toList());
         bookList.clear();
-        bookList.addAll(filtered);
+        bookList.addAll(bookService.getAllBooks().stream().filter(b ->
+                b.getTitle().toLowerCase().contains(query) ||
+                        b.getAuthor().toLowerCase().contains(query) ||
+                        b.getIsbn().toLowerCase().contains(query)
+        ).toList());
         bookTable.setItems(bookList);
     }
+
+    // Handler for remove action (assume a remove button in the FXML calls this method)
+    @FXML
+    public void removeBook() {
+        Book selected = bookTable.getSelectionModel().getSelectedItem();
+        if(selected != null) {
+            if(bookService.removeBook(selected.getId())) {
+                refreshTable();
+            } else {
+                // Display error message if needed
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to remove book.");
+                alert.show();
+            }
+        }
+    }
+    @FXML
+    public void addBook() {
+        try {
+            String title = titleField.getText().trim();
+            String author = authorField.getText().trim();
+            String isbn = isbnField.getText().trim();
+            int availableCopies = Integer.parseInt(copiesField.getText().trim());
+
+            if (title.isEmpty() || author.isEmpty() || isbn.isEmpty()) {
+                showAlert(Alert.AlertType.WARNING, "Please fill all fields.");
+                return;
+            }
+
+            Book newBook = new Book(0, title, author, isbn, availableCopies);
+            bookService.addBook(newBook);
+
+            titleField.clear();
+            authorField.clear();
+            isbnField.clear();
+            copiesField.clear();
+
+            refreshTable();
+            showAlert(Alert.AlertType.INFORMATION, "Book added successfully!");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Please enter a valid number for available copies.");
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Failed to add book. Please try again.");
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType, message, ButtonType.OK);
+        alert.showAndWait();
+    }
+
 }
