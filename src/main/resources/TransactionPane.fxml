@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.TransactionController">
+    <children>
+        <TableView fx:id="transactionTable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="770.0">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100"/>
+                <TableColumn fx:id="bookIdColumn" text="Book ID" prefWidth="100"/>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="250"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+            </columns>
+        </TableView>
+        <TextField fx:id="userIdField" layoutX="14.0" layoutY="330.0" promptText="User ID" prefWidth="100"/>
+        <TextField fx:id="bookIdField" layoutX="130.0" layoutY="330.0" promptText="Book ID" prefWidth="100"/>
+        <ComboBox fx:id="typeComboBox" layoutX="246.0" layoutY="330.0" prefWidth="150"/>
+        <Button fx:id="addTransactionButton" layoutX="412.0" layoutY="330.0" text="Add Transaction" onAction="#addTransaction"/>
+    </children>
+</AnchorPane>

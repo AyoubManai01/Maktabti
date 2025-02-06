@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" styleClass="login-root">
+    <children>
+        <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
+            <children>
+                <Label text="Maktabti Login" styleClass="login-title" />
+                <TextField fx:id="usernameField" promptText="Username" />
+                <PasswordField fx:id="passwordField" promptText="Password" />
+                <Button text="Login" onAction="#handleLogin" styleClass="login-button"/>
+                <Label fx:id="errorLabel" textFill="red"/>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
