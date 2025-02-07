@@ -41,7 +41,6 @@ public class BookService {
         }
     }
 
-    // New method to remove a book by id
     public boolean removeBook(int bookId) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM books WHERE id = ?");
@@ -54,7 +53,6 @@ public class BookService {
         return false;
     }
 
-    // Updated method: Decrease available copies if at least 1 exists.
     public boolean borrowBook(int bookId) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
@@ -68,7 +66,6 @@ public class BookService {
         return false;
     }
 
-    // Updated method: Increase available copies.
     public boolean returnBook(int bookId) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
