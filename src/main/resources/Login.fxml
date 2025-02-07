@@ -4,7 +4,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" prefWidth="500" prefHeight="600" style="-fx-background-color: linear-gradient(to bottom, #1E1E1E, #333333);">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" prefWidth="500" prefHeight="600" style="-fx-background-image: url('/Library.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;">
     <VBox alignment="CENTER" spacing="20" layoutX="50" layoutY="100" prefWidth="400" prefHeight="400" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50" AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100">
 
         <Label text="Maktabti" style="-fx-font-size: 48px; -fx-text-fill: white; -fx-font-weight: bold;" />
