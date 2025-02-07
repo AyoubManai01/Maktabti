@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.maktabti.Controllers.BorrowReturnController"
-            style="-fx-background-image: url('/Library.jpg');
+            style="-fx-background-image: url('/Book.jpg');
                    -fx-background-size: cover;
                    -fx-background-repeat: no-repeat;">
     <children>
