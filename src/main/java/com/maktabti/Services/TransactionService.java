@@ -42,7 +42,7 @@ public class TransactionService {
         }
     }
 
-    // New method to remove a transaction by id
+
     public boolean removeTransaction(int transactionId) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("DELETE FROM transactions WHERE id = ?");

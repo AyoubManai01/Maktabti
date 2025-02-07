@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.BorrowReturnController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.maktabti.Controllers.BorrowReturnController"
+            style="-fx-background-image: url('/Library.jpg');
+                   -fx-background-size: cover;
+                   -fx-background-repeat: no-repeat;">
     <children>
-        <Label text="Enter Book ID:" layoutX="20" layoutY="20"/>
-        <TextField fx:id="bookIdField" layoutX="20" layoutY="50" promptText="Book ID"/>
-        <Button text="Borrow" layoutX="20" layoutY="100" onAction="#borrowBook" styleClass="button"/>
-        <Button text="Return" layoutX="140" layoutY="100" onAction="#returnBook" styleClass="button"/>
-        <Label fx:id="messageLabel" layoutX="20" layoutY="150"/>
+        <AnchorPane layoutX="0" layoutY="0" prefWidth="300" prefHeight="200"
+                    style="-fx-background-color: rgba(0, 0, 0, 0.6); -fx-background-radius: 10px;"
+                    AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
+            <children>
+
+                <Label text="Enter Book ID:"
+                       style="-fx-text-fill: white; -fx-font-size: 14px;"
+                       AnchorPane.topAnchor="40.0"
+                       AnchorPane.leftAnchor="20.0"
+                       AnchorPane.rightAnchor="20.0"/>
+
+                <TextField fx:id="bookIdField" promptText="Book ID"
+                           style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-text-fill: black;"
+                           AnchorPane.topAnchor="70.0"
+                           AnchorPane.leftAnchor="20.0"
+                           AnchorPane.rightAnchor="20.0"/>
+
+                <Button text="Borrow" onAction="#borrowBook"
+                        style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 15px;"
+                        AnchorPane.topAnchor="110.0"
+                        AnchorPane.leftAnchor="20.0"/>
+
+                <Button text="Return" onAction="#returnBook"
+                        style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 15px;"
+                        AnchorPane.topAnchor="110.0"
+                        AnchorPane.rightAnchor="20.0"/>
+
+                <Label fx:id="messageLabel"
+                       style="-fx-text-fill: white; -fx-font-size: 14px;"
+                       AnchorPane.topAnchor="150.0"
+                       AnchorPane.leftAnchor="20.0"/>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
