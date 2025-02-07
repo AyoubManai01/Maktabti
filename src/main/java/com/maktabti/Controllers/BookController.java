@@ -59,7 +59,6 @@ public class BookController {
         bookTable.setItems(bookList);
     }
 
-    // Handler for remove action (assume a remove button in the FXML calls this method)
     @FXML
     public void removeBook() {
         Book selected = bookTable.getSelectionModel().getSelectedItem();
@@ -67,7 +66,6 @@ public class BookController {
             if(bookService.removeBook(selected.getId())) {
                 refreshTable();
             } else {
-                // Display error message if needed
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to remove book.");
                 alert.show();
             }
