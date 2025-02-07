@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public class SubscriptionController {
+    public Button addSubscriptionButton;
     @FXML
     private TableView<Subscription> subscriptionTable;
     @FXML
@@ -33,8 +34,8 @@ public class SubscriptionController {
     @FXML
     private TextField fineField;
 
-    private SubscriptionService subscriptionService = new SubscriptionService();
-    private ObservableList<Subscription> subscriptionList = FXCollections.observableArrayList();
+    private final SubscriptionService subscriptionService = new SubscriptionService();
+    private final ObservableList<Subscription> subscriptionList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -50,9 +51,15 @@ public class SubscriptionController {
     @FXML
     private void addSubscription() {
         if (validateInput()) {
-            int userId = Integer.parseInt(userIdField.getText());
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
+
+            if (startDate.isAfter(endDate)) {
+                showAlert(Alert.AlertType.ERROR, "Invalid Dates", "Start date must be earlier than end date.", "");
+                return;
+            }
+
+            int userId = Integer.parseInt(userIdField.getText());
             double fine = Double.parseDouble(fineField.getText());
 
             Subscription subscription = new Subscription(0, userId, startDate, endDate, fine);
@@ -61,6 +68,7 @@ public class SubscriptionController {
             clearFields();
         }
     }
+
 
     @FXML
     private void deleteSubscription() {
