@@ -32,7 +32,7 @@
 
 ### Prerequisites
 
-- Java Development Kit (JDK) 11 or later
+- Java Development Kit (JDK) 17 or later
 - MySQL Server
 - Maven
 - IDE (IntelliJ IDEA, Eclipse, or similar)
