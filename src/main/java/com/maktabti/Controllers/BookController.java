@@ -136,8 +136,6 @@ public class BookController {
         new Alert(alertType, message, ButtonType.OK).showAndWait();
     }
 
-    // ---------------- Google Books Search Methods ----------------
-
     @FXML
     private void searchGoogleBooks() {
         String query = searchField1.getText().trim();
@@ -148,9 +146,6 @@ public class BookController {
         }
     }
 
-    /**
-     * Fetches books from the Google Books API and extracts title, author, and ISBN.
-     */
     private List<GoogleBook> fetchGoogleBooks(String query) {
         List<GoogleBook> books = new ArrayList<>();
         try {
@@ -201,9 +196,6 @@ public class BookController {
         return books;
     }
 
-    /**
-     * Adds the selected Google Book (from the popup) to your main list.
-     */
     @FXML
     private TextField numberOfCopiesField;
 
@@ -240,11 +232,6 @@ public class BookController {
         }
     }
 
-    // ---------------- Helper Class ----------------
-
-    /**
-     * A simple POJO to hold Google Books API results.
-     */
     private static class GoogleBook {
         private final String title;
         private final String author;
