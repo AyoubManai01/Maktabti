@@ -8,6 +8,7 @@ com\maktabti\Entities\Book.class
 com\maktabti\Controllers\BookController$GoogleBook.class
 com\maktabti\Controllers\AdminMainController.class
 com\maktabti\Controllers\ClientMainController.class
+com\maktabti\Controllers\SubscriptionController$1.class
 com\maktabti\Controllers\BorrowReturnController.class
 com\maktabti\Controllers\LoginController.class
 com\maktabti\Services\UserService.class
