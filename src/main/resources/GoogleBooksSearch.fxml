@@ -6,5 +6,8 @@
         <TextField fx:id="searchField1" layoutX="14" layoutY="14" prefWidth="300" promptText="Search for books..."/>
         <Button fx:id="searchButton" text="Search" layoutX="320" layoutY="14" onAction="#searchBooks" styleClass="button"/>
         <ListView fx:id="resultsList" layoutX="14" layoutY="50" prefHeight="400" prefWidth="450"/>
+
+        <TextField fx:id="numberOfCopiesField" layoutX="14" layoutY="460" promptText="Enter number of copies" />
+        <Button fx:id="addBookButton" text="Add Book from Google" layoutX="320" layoutY="460" onAction="#addGoogleBook"/>
     </children>
 </AnchorPane>
