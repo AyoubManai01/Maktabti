@@ -21,6 +21,6 @@
         <TextField fx:id="copiesField" layoutX="500.0" layoutY="650.0" promptText="NbOfCopies" prefWidth="100"/>
         <Button text="Add Book" layoutX="650.0" layoutY="650.0" onAction="#addBook" styleClass="button"/>
         <Button text="Remove Selected Book" layoutX="400" layoutY="14" onAction="#removeBook" styleClass="button"/>
-
+        <Button text="Add Book From Internet" layoutX="300" layoutY="540" onAction="#openGoogleBooksSearch" styleClass="button"/>
     </children>
 </AnchorPane>

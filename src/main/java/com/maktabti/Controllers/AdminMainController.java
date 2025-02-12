@@ -20,6 +20,7 @@ public class AdminMainController {
     @FXML public void showTransactions() { loadContent("/TransactionPane.fxml"); }
     @FXML public void showSubscriptions() { loadContent("/SubscriptionPane.fxml"); }
     @FXML public void showBorrowReturn() { loadContent("/BorrowReturnPane.fxml"); }
+    @FXML public void openGoogleBooksSearch() { loadContent("/GoogleBooksSearch.fxml"); }
 
     @FXML public void logout() {
         try {
