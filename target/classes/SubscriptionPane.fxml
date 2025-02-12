@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.maktabti.Controllers.SubscriptionController">
+    <TableView fx:id="subscriptionTable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="770.0">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="userIdColumn" text="User ID" prefWidth="100"/>
+            <TableColumn fx:id="startDateColumn" text="Start Date" prefWidth="150"/>
+            <TableColumn fx:id="endDateColumn" text="End Date" prefWidth="150"/>
+            <TableColumn fx:id="fineColumn" text="Fine" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+    <TextField fx:id="userIdField" layoutX="14.0" layoutY="330.0" promptText="User ID" prefWidth="100"/>
+    <DatePicker fx:id="startDatePicker" layoutX="130.0" layoutY="330.0" prefWidth="150"/>
+    <DatePicker fx:id="endDatePicker" layoutX="292.0" layoutY="330.0" prefWidth="150"/>
+    <TextField fx:id="fineField" layoutX="454.0" layoutY="330.0" promptText="Fine" prefWidth="100"/>
+
+    <Button fx:id="addSubscriptionButton" layoutX="570.0" layoutY="330.0" text="Add Subscription"
+            onAction="#addSubscription"/>
+    <Button fx:id="deleteSubscriptionButton" layoutX="680.0" layoutY="330.0" onAction="#deleteSubscription">
+        <graphic>
+            <ImageView fitHeight="16" fitWidth="16" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="istockphoto-928418914-612x612.jpg"/>
+                </image>
+            </ImageView>
+        </graphic>
+    </Button>
+</AnchorPane>
