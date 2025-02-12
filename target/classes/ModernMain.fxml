@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.MainController">
+    <top>
+        <HBox styleClass="top-bar">
+            <Label text="Maktabti" styleClass="logo" />
+        </HBox>
+    </top>
+    <center>
+        <TabPane fx:id="mainTabPane">
+            <tabs>
+                <Tab text="Books">
+                    <StackPane>
+                        <fx:include source="BookPane.fxml" />
+                    </StackPane>
+                </Tab>
+                <Tab text="Users">
+                    <StackPane>
+                        <fx:include source="UserPane.fxml" />
+                    </StackPane>
+                </Tab>
+                <Tab text="Transactions">
+                    <StackPane>
+                        <fx:include source="TransactionPane.fxml" />
+                    </StackPane>
+                </Tab>
+                <Tab text="Subscriptions">
+                    <StackPane>
+                        <fx:include source="SubscriptionPane.fxml" />
+                    </StackPane>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
