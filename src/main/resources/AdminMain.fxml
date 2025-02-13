@@ -4,7 +4,12 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Region?>
+<?import java.lang.String?>
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.AdminMainController">
+    <stylesheets>
+        <!-- Link to the style.css located in the resources folder -->
+        <String fx:value="/styles.css"/>
+    </stylesheets>
     <left>
         <VBox spacing="10" styleClass="side-panel" prefWidth="250" alignment="TOP_CENTER">
             <children>
