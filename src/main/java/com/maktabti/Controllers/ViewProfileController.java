@@ -10,13 +10,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import java.awt.*;
 
+
+import java.net.URI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ViewProfileController {
 
@@ -109,7 +114,7 @@ public class ViewProfileController {
             Session session = Session.create(params);
 
             // Open the Stripe payment page in the browser
-            java.awt.Desktop.getDesktop().browse(new java.net.URI(session.getUrl()));
+            Desktop.getDesktop().browse(new URI(session.getCurrency()));
 
             // Update UI after payment
             loadingIndicator.setVisible(false);
