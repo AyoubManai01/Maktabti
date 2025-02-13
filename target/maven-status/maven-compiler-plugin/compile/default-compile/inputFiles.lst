@@ -8,6 +8,7 @@ C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Controllers\Orde
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Controllers\SubscriptionController.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Controllers\TransactionController.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Controllers\UserController.java
+C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Controllers\ViewProfileController.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Entities\Book.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Entities\Subscription.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Entities\Transaction.java
@@ -17,5 +18,6 @@ C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Services\BookSer
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Services\SubscriptionService.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Services\TransactionService.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Services\UserService.java
+C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Utils\CurrentUser.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Utils\DBUtil.java
 C:\Users\andol\IdeaProjects\Maktabti\src\main\java\com\maktabti\Utils\Session.java
