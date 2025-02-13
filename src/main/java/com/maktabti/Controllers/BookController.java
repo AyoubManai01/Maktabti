@@ -223,10 +223,12 @@ public class BookController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GoogleBooksSearch.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Google Books Search");
-            stage.show();
+            //Stage stage = new Stage();
+            Stage stage = (Stage) searchField.getScene().getWindow();
+            //stage.setScene(new Scene(root));
+            //stage.setTitle("Google Books Search");
+            //stage.show();
+            stage.getScene().setRoot(root);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,4 +248,19 @@ public class BookController {
         public String getAuthor() { return author; }
         public String getIsbn() { return isbn; }
     }
+    @FXML
+    private Button sF1;
+
+    @FXML
+    private void goBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminMain.fxml"));
+            Parent bookPane = loader.load();
+            Stage stage = (Stage) searchField1.getScene().getWindow();
+            stage.getScene().setRoot(bookPane);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
