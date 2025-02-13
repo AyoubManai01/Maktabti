@@ -9,6 +9,7 @@
             style="-fx-background-image: url('/Library.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;">
 
 
+
     <VBox alignment="CENTER" spacing="20" prefWidth="400" prefHeight="400"
           AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
           AnchorPane.topAnchor="150" AnchorPane.bottomAnchor="150">
@@ -29,9 +30,16 @@
             <PasswordField fx:id="passwordField" promptText="Password"
                            style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
 
+            <PasswordField fx:id="signUpEmail" promptText="email"
+                           style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
+
+
 
             <Button text="Login" fx:id="loginButton" onAction="#handleLogin"
                     style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" />
+            <Button text="Sign Up" fx:id="signupButton" onAction="#handleSignUp"
+                    style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" />
+
         </VBox>
     </VBox>
 </AnchorPane>
