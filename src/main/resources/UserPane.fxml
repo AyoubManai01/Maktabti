@@ -1,20 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.UserController">
+    <stylesheets>
+        <!-- Link to the style.css located in the resources folder -->
+        <String fx:value="/styles.css"/>
+    </stylesheets>
     <children>
-        <TableView fx:id="userTable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="770.0">
-            <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200"/>
-                <TableColumn fx:id="roleColumn" text="Role" prefWidth="150"/>
-            </columns>
-        </TableView>
-        <TextField fx:id="usernameField" layoutX="14.0" layoutY="330.0" promptText="Username" prefWidth="150"/>
-        <PasswordField fx:id="passwordField" layoutX="180.0" layoutY="330.0" promptText="Password" prefWidth="150"/>
-        <ComboBox fx:id="roleComboBox" layoutX="346.0" layoutY="330.0" prefWidth="150"/>
-        <Button fx:id="addUserButton" layoutX="512.0" layoutY="330.0" text="Add User" onAction="#addUser"/>
+        <!-- Main VBox to hold all components -->
+        <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <!-- TableView for displaying users -->
+            <TableView fx:id="userTable" prefHeight="350.0" prefWidth="770.0" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200"/>
+                    <TableColumn fx:id="roleColumn" text="Role" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- HBox for the form fields and buttons -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <!-- TextField for username -->
+                <TextField fx:id="usernameField" promptText="Enter Username" prefWidth="180" styleClass="input-field"/>
+
+                <!-- PasswordField for password -->
+                <PasswordField fx:id="passwordField" promptText="Enter Password" prefWidth="180" styleClass="input-field"/>
+
+                <!-- ComboBox for role selection -->
+                <ComboBox fx:id="roleComboBox" prefWidth="180" styleClass="combo-box">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="client"/>
+                            <String fx:value="admin"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <!-- Button to add a new user -->
+                <Button fx:id="addUserButton" text="Add User" onAction="#addUser" styleClass="button"/>
+            </HBox>
+        </VBox>
     </children>
+
+    <!-- Padding and spacing for better layout -->
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
 </AnchorPane>

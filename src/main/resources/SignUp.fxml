@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.geometry.Insets?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController"
+            prefWidth="500" prefHeight="600"
+            style="-fx-background-image: url('/Library.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;">
 
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.LoginController" spacing="20" alignment="center" padding="20">
-    <Label text="Sign Up" style="-fx-font-size: 24px;"/>
+    <!-- Error label for sign-up -->
+    <Label fx:id="signUpErrorLabel" layoutX="100" layoutY="350" />
 
-    <Label text="Username"/>
-    <TextField fx:id="usernameField" promptText="Enter username"/>
+    <VBox alignment="CENTER" spacing="20" prefWidth="400" prefHeight="400"
+          AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
+          AnchorPane.topAnchor="150" AnchorPane.bottomAnchor="150">
 
-    <Label text="Password"/>
-    <PasswordField fx:id="passwordField" promptText="Enter password"/>
+        <Label text="Maktabti"
+               style="-fx-font-size: 36px; -fx-text-fill: white; -fx-font-weight: bold;" />
 
-    <Label text="Email"/>
-    <TextField fx:id="emailField" promptText="Enter email"/>
+        <!-- Sign-Up Form -->
+        <VBox spacing="15" alignment="CENTER"
+              style="-fx-background-color: rgba(46, 46, 46, 0.9); -fx-padding: 20px; -fx-background-radius: 10px;">
 
-    <Label text="Role"/>
-    <ComboBox fx:id="roleComboBox">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="client"/>
-                <String fx:value="admin"/>
-            </FXCollections>
-        </items>
-    </ComboBox>
+            <!-- Sign-Up Fields -->
+            <TextField fx:id="signUpUsername" promptText="Username"
+                       style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
 
-    <Button fx:id="signUpButton" text="Sign Up" onAction="#handleShowSignUp" style="-fx-font-size: 14px;"/>
-    <Label fx:id="errorLabel" textFill="red"/>
+            <PasswordField fx:id="signUpPassword" promptText="Password"
+                           style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
 
+            <TextField fx:id="signUpEmail" promptText="Email"
+                       style="-fx-background-color: #444; -fx-text-fill: white; -fx-border-radius: 5px; -fx-padding: 10px;" />
 
-</VBox>
+            <Button text="Sign Up" fx:id="signUpButton" onAction="#handleSignUp"
+                    style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" />
+
+            <!-- Button to navigate back to Login page -->
+            <Button text="Back to Login" fx:id="backToLoginButton" onAction="#handleBackToLogin"
+                    style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px 20px; -fx-background-radius: 5px;" />
+        </VBox>
+    </VBox>
+</AnchorPane>

@@ -4,12 +4,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Region?>
+
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.maktabti.Controllers.ClientMainController">
     <left>
         <VBox spacing="10" styleClass="side-panel" prefWidth="250" alignment="TOP_CENTER">
             <children>
                 <Button text="Books" onAction="#showBooks" styleClass="side-button" maxWidth="Infinity"/>
                 <Button text="Borrow/Return" onAction="#showBorrowReturn" styleClass="side-button" maxWidth="Infinity"/>
+                <Button text="View Account" onAction="#showAccount" styleClass="side-button" maxWidth="Infinity"/>
                 <Region VBox.vgrow="ALWAYS"/>
                 <Button text="Logout" onAction="#logout" styleClass="side-button" maxWidth="Infinity"/>
             </children>
