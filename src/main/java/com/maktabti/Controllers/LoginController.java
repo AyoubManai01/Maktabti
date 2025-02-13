@@ -2,8 +2,7 @@ package com.maktabti.Controllers;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
-import com.maktabti.Utils.Session;
-import javafx.event.ActionEvent;
+import com.maktabti.Utils.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,24 +10,24 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class LoginController {
-    public Button signupButton;
+
     @FXML private TextField usernameField;
-    @FXML private TextField signUpEmail;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
-
     @FXML private Button loginButton;
+
     @FXML private TextField signUpUsername;
+    @FXML private TextField signUpEmail;
     @FXML private PasswordField signUpPassword;
-    
     @FXML private Label signUpErrorLabel;
-    @FXML private Button signUpButton; // Ensure it's linked in FXML
-    @FXML private Button backToLoginButton; // Ensure it's linked in FXML
+    @FXML private Button signUpButton;
+    @FXML private Button backToLoginButton;
 
     private final UserService userService = new UserService();
 
@@ -47,7 +46,9 @@ public class LoginController {
 
         User user = userService.authenticate(username, password);
         if (user != null) {
-            Session.setCurrentUser(user); // Save the user in session
+            // ✅ Store the logged-in user in `CurrentUser`
+            CurrentUser.setUserId(user.getId());
+            CurrentUser.setEmail(user.getEmail());
 
             try {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
@@ -72,40 +73,38 @@ public class LoginController {
         }
     }
 
+    /**
+     * Handles user sign-up.
+     */
     @FXML
     public void handleSignUp() {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String email = signUpEmail.getText(); // Assuming you have an email field
+        String username = signUpUsername.getText();
+        String password = signUpPassword.getText();
+        String email = signUpEmail.getText();
 
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
-            if (errorLabel != null) {
-                errorLabel.setText("All fields must be filled out.");
-            } else {
-                System.out.println("Error: errorLabel is null.");
-            }
+            signUpErrorLabel.setText("All fields must be filled out.");
             return;
         }
 
-        // Assuming you have a service to handle user registration
         boolean isUserCreated = userService.createUser(username, password, email);
 
         if (isUserCreated) {
-            if (errorLabel != null) {
-                errorLabel.setText("Sign-up successful! You can now log in.");
-            } else {
-                System.out.println("Error: errorLabel is null.");
-            }
+            signUpErrorLabel.setText("Sign-up successful! You can now log in.");
         } else {
-            if (errorLabel != null) {
-                errorLabel.setText("Error during sign-up. Please try again.");
-            } else {
-                System.out.println("Error: errorLabel is null.");
-            }
+            signUpErrorLabel.setText("Error during sign-up. Please try again.");
         }
     }
 
-
-
-
+    /**
+     * Handles back to login action.
+     */
+    @FXML
+    public void handleBackToLogin(ActionEvent event) throws IOException {
+        Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Scene loginScene = new Scene(loginView);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
+    }
 }
