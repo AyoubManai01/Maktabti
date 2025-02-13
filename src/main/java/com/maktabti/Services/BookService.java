@@ -162,7 +162,7 @@ public class BookService {
                 if (availableCopies != -1) {
                     return String.format("Title: %s\nAuthor: %s\nISBN: %s\nAvailable Copies: %d", title, author, isbn, availableCopies);
                 } else {
-                    return String.format("Title: %s\nAuthor: %s\nISBN: %s\nStatus: Not available in the library.", title, author, isbn);
+                    return String.format("Title: %s\nAuthor: %s\nISBN: %s\nStatus: Not available in our library.", title, author, isbn);
                 }
             } else {
                 return "No results found for the book.";
