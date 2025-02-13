@@ -2,30 +2,27 @@ package com.maktabti.Controllers;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
-import com.maktabti.Utils.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.Node;
-import javafx.event.ActionEvent;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class LoginController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
-    @FXML private Button loginButton;
 
     @FXML private TextField signUpUsername;
-    @FXML private TextField signUpEmail;
     @FXML private PasswordField signUpPassword;
+    @FXML private TextField signUpEmail;
     @FXML private Label signUpErrorLabel;
+
+    @FXML private Button loginButton;
     @FXML private Button signUpButton;
     @FXML private Button backToLoginButton;
 
@@ -44,30 +41,12 @@ public class LoginController {
             return;
         }
 
+        // Authenticate user
         User user = userService.authenticate(username, password);
         if (user != null) {
-            // ✅ Store the logged-in user in `CurrentUser`
-            CurrentUser.setUserId(user.getId());
-            CurrentUser.setEmail(user.getEmail());
-
-            try {
-                Stage stage = (Stage) usernameField.getScene().getWindow();
-                Parent root;
-
-                // Load interface based on user role
-                if ("admin".equals(user.getRole())) {
-                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AdminMain.fxml")));
-                } else {
-                    root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/ClientMain.fxml")));
-                }
-
-                Scene scene = new Scene(root, 1024, 768);
-                scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles.css")).toExternalForm());
-                stage.setScene(scene);
-            } catch (IOException e) {
-                e.printStackTrace();
-                errorLabel.setText("Failed to load main application.");
-            }
+            errorLabel.setText("Login successful!");
+            // Navigate to the main application screen
+            navigateToMainApp(user);
         } else {
             errorLabel.setText("Invalid credentials. Please try again.");
         }
@@ -87,8 +66,8 @@ public class LoginController {
             return;
         }
 
+        // Create user
         boolean isUserCreated = userService.createUser(username, password, email);
-
         if (isUserCreated) {
             signUpErrorLabel.setText("Sign-up successful! You can now log in.");
         } else {
@@ -97,14 +76,55 @@ public class LoginController {
     }
 
     /**
-     * Handles back to login action.
+     * Navigates to the main application screen based on user role.
+     */
+    private void navigateToMainApp(User user) {
+        try {
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Parent root;
+
+            // Load interface based on user role
+            if ("admin".equals(user.getRole())) {
+                root = FXMLLoader.load(getClass().getResource("/AdminMain.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("/ClientMain.fxml"));
+            }
+
+            Scene scene = new Scene(root, 1280, 768);
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("Failed to load main application.");
+        }
+    }
+
+    /**
+     * Navigates to the Sign-Up page.
      */
     @FXML
-    public void handleBackToLogin(ActionEvent event) throws IOException {
-        Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-        Scene loginScene = new Scene(loginView);
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(loginScene);
-        window.show();
+    public void handleNavigateToSignUp() {
+        try {
+            Parent signUpView = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
+            Scene signUpScene = new Scene(signUpView);
+            Stage window = (Stage) signUpButton.getScene().getWindow();
+            window.setScene(signUpScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Navigates back to the Login page.
+     */
+    @FXML
+    public void handleBackToLogin() {
+        try {
+            Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Scene loginScene = new Scene(loginView);
+            Stage window = (Stage) backToLoginButton.getScene().getWindow();
+            window.setScene(loginScene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
