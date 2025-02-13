@@ -60,4 +60,13 @@ public class TransactionController {
         transactionList.addAll(transactionService.getAllTransactions());
         transactionTable.setItems(transactionList);
     }
+
+    @FXML
+    private void filterByUserId() {
+        int userId = Integer.parseInt(userIdField.getText());
+        transactionList.clear();
+        transactionList.addAll(transactionService.getTransactionsByUserId(userId));
+        transactionTable.setItems(transactionList);
+    }
+
 }

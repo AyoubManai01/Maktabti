@@ -18,5 +18,7 @@
         <TextField fx:id="bookIdField" layoutX="130.0" layoutY="330.0" promptText="Book ID" prefWidth="100"/>
         <ComboBox fx:id="typeComboBox" layoutX="246.0" layoutY="330.0" prefWidth="150"/>
         <Button fx:id="addTransactionButton" layoutX="412.0" layoutY="330.0" text="Add Transaction" onAction="#addTransaction"/>
+        <Button text="Filter by User ID" onAction="#filterByUserId" layoutX="600" layoutY="330" />
+
     </children>
 </AnchorPane>
