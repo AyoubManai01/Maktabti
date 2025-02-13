@@ -25,8 +25,8 @@ public class UserController {
     @FXML
     private Button addUserButton;
 
-    private UserService userService = new UserService();
-    private ObservableList<User> userList = FXCollections.observableArrayList();
+    private final UserService userService = new UserService();
+    private final ObservableList<User> userList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {

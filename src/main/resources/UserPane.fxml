@@ -2,19 +2,32 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.UserController">
     <children>
-        <TableView fx:id="userTable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="770.0">
+        <TableView fx:id="userTable" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="770.0" styleClass="table-view">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200"/>
-                <TableColumn fx:id="roleColumn" text="Role" prefWidth="150"/>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200" />
+                <TableColumn fx:id="roleColumn" text="Role" prefWidth="150" />
             </columns>
         </TableView>
-        <TextField fx:id="usernameField" layoutX="14.0" layoutY="330.0" promptText="Username" prefWidth="150"/>
-        <PasswordField fx:id="passwordField" layoutX="180.0" layoutY="330.0" promptText="Password" prefWidth="150"/>
-        <ComboBox fx:id="roleComboBox" layoutX="346.0" layoutY="330.0" prefWidth="150"/>
-        <Button fx:id="addUserButton" layoutX="512.0" layoutY="330.0" text="Add User" onAction="#addUser"/>
+
+        <TextField fx:id="usernameField" layoutX="14.0" layoutY="330.0" promptText="Username" prefWidth="150" styleClass="input-field" />
+        <PasswordField fx:id="passwordField" layoutX="180.0" layoutY="330.0" promptText="Password" prefWidth="150" styleClass="input-field" />
+
+        <ComboBox fx:id="roleComboBox" layoutX="346.0" layoutY="330.0" prefWidth="150" styleClass="combo-box">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="client" />
+                    <String fx:value="admin" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button fx:id="addUserButton" layoutX="512.0" layoutY="330.0" text="Add User" onAction="#addUser" styleClass="button" />
     </children>
 </AnchorPane>

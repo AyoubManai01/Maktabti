@@ -36,3 +36,78 @@
 .side-button:pressed {
     -fx-background-color: #e0e2e5;
 }
+
+/* General Styling */
+* {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+}
+
+.table-view {
+    -fx-background-color: #f4f4f9;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-padding: 8px;
+    -fx-border-color: #e0e0e0;
+}
+
+.input-field {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-focus-color: #4caf50;
+}
+
+.combo-box {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-focus-color: #4caf50;
+}
+
+.button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #4caf50;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #388e3c;
+}
+
+/* Layout adjustments */
+AnchorPane {
+    -fx-background-color: #fafafa;
+    -fx-padding: 20px;
+}
+
+.text-field,
+.password-field,
+.combo-box {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
