@@ -4,11 +4,13 @@ import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class LoginController {
@@ -126,5 +128,13 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public void handleBackToLogin(ActionEvent event) throws IOException {
+        Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+        Scene loginScene = new Scene(loginView);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
     }
 }
