@@ -4,7 +4,6 @@ import com.maktabti.Entities.Subscription;
 import com.maktabti.Entities.Transaction;
 import com.maktabti.Services.SubscriptionService;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -113,20 +112,37 @@ public class SubscriptionController {
     @FXML
     public void addSubscription() {
         String email = emailField.getText();
-        String startDate = startDatePicker.getValue() != null ? startDatePicker.getValue().toString() : null;
-        String endDate = endDatePicker.getValue() != null ? endDatePicker.getValue().toString() : null;
-        double fine = fineField.getText().isEmpty() ? 0 : Double.parseDouble(fineField.getText());
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+        double fine;
 
+        // Validate fine field
+        try {
+            fine = fineField.getText().isEmpty() ? 0 : Double.parseDouble(fineField.getText());
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Fine must be a valid number.");
+            return;
+        }
+
+        // Validate required fields
         if (email.isEmpty() || startDate == null || endDate == null) {
-            // Show an alert if any required field is empty
             showAlert("Error", "Please fill all the fields correctly.");
             return;
         }
 
+        // Validate end date
+        if (endDate.isBefore(startDate)) {
+            showAlert("Error", "End date cannot be smaller than the start date.");
+            return;
+        }
+
         // Add the subscription
-        Subscription newSubscription = new Subscription(0, email, LocalDate.parse(startDate), LocalDate.parse(endDate), fine);
+        Subscription newSubscription = new Subscription(0, email, startDate, endDate, fine);
         subscriptionService.addSubscription(newSubscription);
         loadSubscriptions(); // Refresh the table with the updated list
+
+        // Clear input fields after successful addition
+        clearInputFields();
     }
 
     @FXML
@@ -147,6 +163,14 @@ public class SubscriptionController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    // Clear input fields
+    private void clearInputFields() {
+        emailField.clear();
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
+        fineField.clear();
     }
 
     // Filter subscriptions by email when typing in the email field
