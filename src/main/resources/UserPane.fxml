@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Pos?>
-
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.UserController">
     <stylesheets>
         <!-- Link to the style.css located in the resources folder -->
@@ -15,6 +15,13 @@
     <children>
         <!-- Main VBox to hold all components -->
         <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <!-- Search Bar -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Search by username or role" prefWidth="300" styleClass="input-field"/>
+                <Button text="Search" onAction="#handleSearch" styleClass="button"/>
+                <Button text="Clear Search" onAction="#handleClearSearch" styleClass="button"/>
+            </HBox>
+
             <!-- TableView for displaying users -->
             <TableView fx:id="userTable" prefHeight="350.0" prefWidth="770.0" styleClass="table-view">
                 <columns>
@@ -42,8 +49,11 @@
                     </items>
                 </ComboBox>
 
-                <!-- Button to add a new user -->
+                <!-- Buttons for actions -->
                 <Button fx:id="addUserButton" text="Add User" onAction="#addUser" styleClass="button"/>
+                <Button fx:id="editUserButton" text="Edit User" onAction="#editUser" styleClass="button" disable="true"/>
+                <Button fx:id="deleteUserButton" text="Delete User" onAction="#deleteUser" styleClass="button" disable="true"/>
+                <Button text="Clear Form" onAction="#clearForm" styleClass="button"/>
             </HBox>
         </VBox>
     </children>

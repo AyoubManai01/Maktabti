@@ -11,17 +11,22 @@ import java.util.List;
 
 public class UserService {
 
+    /**
+     * Fetches all users from the database.
+     */
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
         try (Connection conn = DBUtil.getConnection()) {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM users");
             while (rs.next()) {
-                User user = new User(rs.getInt("id"),
+                User user = new User(
+                        rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
                         rs.getString("role"),
-                        rs.getString("email"));
+                        rs.getString("email")
+                );
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -30,6 +35,9 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Adds a new user to the database.
+     */
     public boolean addUser(User user) {
         try (Connection conn = DBUtil.getConnection()) {
             // Check if the user already exists
@@ -55,21 +63,73 @@ public class UserService {
         return false; // Return false in case of an exception
     }
 
-
-    // New method to remove a user by id
-    public boolean removeUser(int userId) {
+    /**
+     * Updates an existing user in the database.
+     */
+    public boolean updateUser(User user) {
         try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?");
-            ps.setInt(1, userId);
-            int affected = ps.executeUpdate();
-            return affected > 0;
+            PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE users SET username = ?, password = ?, role = ?, email = ? WHERE id = ?"
+            );
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword()); // Ideally, hash the password before updating
+            ps.setString(3, user.getRole());
+            ps.setString(4, user.getEmail());
+            ps.setInt(5, user.getId());
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // Return true if the user was updated successfully
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return false; // Return false in case of an exception
     }
 
-    // Authentication method remains unchanged.
+    /**
+     * Deletes a user from the database by their ID.
+     */
+    public boolean deleteUser(int userId) {
+        try (Connection conn = DBUtil.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?");
+            ps.setInt(1, userId);
+            int rowsDeleted = ps.executeUpdate();
+            return rowsDeleted > 0; // Return true if the user was deleted successfully
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Return false in case of an exception
+    }
+
+    /**
+     * Searches for users by username or role.
+     */
+    public List<User> searchUsers(String query) {
+        List<User> users = new ArrayList<>();
+        try (Connection conn = DBUtil.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(
+                    "SELECT * FROM users WHERE username LIKE ? OR role LIKE ?"
+            );
+            ps.setString(1, "%" + query + "%");
+            ps.setString(2, "%" + query + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email")
+                );
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    /**
+     * Authenticates a user by their username and password.
+     */
     public User authenticate(String username, String password) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?");
@@ -77,16 +137,23 @@ public class UserService {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                String email = "";
-                return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("role"), email);
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Authentication failed
     }
 
-    // Create new user
+    /**
+     * Creates a new user in the database.
+     */
     public boolean createUser(String username, String password, String email) {
         try (Connection conn = DBUtil.getConnection()) {
             // Check if the user already exists
@@ -115,7 +182,9 @@ public class UserService {
         return false; // Return false in case of an exception
     }
 
-    // Utility method to hash passwords
+    /**
+     * Hashes a password using SHA-256.
+     */
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
