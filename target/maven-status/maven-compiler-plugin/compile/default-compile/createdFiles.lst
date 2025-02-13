@@ -1,6 +1,7 @@
 com\maktabti\Services\SubscriptionService.class
 com\maktabti\Services\TransactionService.class
 com\maktabti\Utils\DBUtil.class
+com\maktabti\Controllers\SubscriptionController$2.class
 com\maktabti\Controllers\TransactionController.class
 com\maktabti\Controllers\SubscriptionController.class
 com\maktabti\Entities\Subscription.class
