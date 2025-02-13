@@ -1,22 +1,42 @@
 package com.maktabti.Controllers;
 
 import com.maktabti.Services.BookService;
-import com.maktabti.Services.TransactionService;
-import com.maktabti.Entities.Transaction;
-import com.maktabti.Utils.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-
-import java.time.LocalDateTime;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 
 public class BorrowReturnController {
 
     @FXML
     private TextField bookIdField; // TextField to input book name
+    @FXML
+    private Label bookInfoLabel; // Label to display book information
+    @FXML
+    private Button searchButton; // Search button
 
     private BookService bookService = new BookService(); // Book service for business logic
-    private TransactionService transactionService = new TransactionService(); // Transaction service for recording actions
+
+    @FXML
+    public void initialize() {
+        // Set action for the Search button
+        searchButton.setOnAction(event -> searchBook());
+    }
+
+    // Method to handle the Search button click
+    @FXML
+    private void searchBook() {
+        String bookName = bookIdField.getText().trim(); // Get the book name
+        if (bookName.isEmpty()) {
+            showErrorPopup("Error", "Please enter a valid book name.");
+            return;
+        }
+
+        // Fetch and display book info from Open Library API and check availability
+        String bookInfo = bookService.fetchBookDetailsAndCheckAvailability(bookName);
+        bookInfoLabel.setText(bookInfo);
+    }
 
     @FXML
     public void borrowBook() {
@@ -34,12 +54,9 @@ public class BorrowReturnController {
 
         boolean success = bookService.borrowBookByName(bookName); // Borrow the book
         if (success) {
-            showSuccessPopup("Success", "The book was borrowed successfully."); // Show success pop-up
-            int clientId = Session.getCurrentUser().getId();
-            Transaction transaction = new Transaction(0, clientId, bookId, LocalDateTime.now(), "borrow");
-            transactionService.addTransaction(transaction); // Record transaction
+            showSuccessPopup("Success", "The book was borrowed successfully.");
         } else {
-            showErrorPopup("Error", "Failed to borrow book. Check availability.");
+            showErrorPopup("Error", "Failed to borrow book. The book may not be available.");
         }
     }
 
@@ -59,12 +76,9 @@ public class BorrowReturnController {
 
         boolean success = bookService.returnBookByName(bookName); // Return the book
         if (success) {
-            showSuccessPopup("Success", "The book was returned successfully."); // Show success pop-up
-            int clientId = Session.getCurrentUser().getId();
-            Transaction transaction = new Transaction(0, clientId, bookId, LocalDateTime.now(), "return");
-            transactionService.addTransaction(transaction); // Record transaction
+            showSuccessPopup("Success", "The book was returned successfully.");
         } else {
-            showErrorPopup("Error", "Failed to return book. Check the book name.");
+            showErrorPopup("Error", "Failed to return book. The book may not exist in the system.");
         }
     }
 

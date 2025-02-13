@@ -24,20 +24,26 @@
                            AnchorPane.leftAnchor="20.0"
                            AnchorPane.rightAnchor="20.0"/>
 
+                <Button fx:id="searchButton" text="Search" onAction="#searchBook"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 15px;"
+                        AnchorPane.topAnchor="110.0"
+                        AnchorPane.leftAnchor="20.0"/>
+
                 <Button text="Borrow" onAction="#borrowBook"
                         style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 15px;"
                         AnchorPane.topAnchor="110.0"
-                        AnchorPane.leftAnchor="20.0"/>
+                        AnchorPane.leftAnchor="100.0"/>
 
                 <Button text="Return" onAction="#returnBook"
                         style="-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 15px;"
                         AnchorPane.topAnchor="110.0"
                         AnchorPane.rightAnchor="20.0"/>
 
-                <Label fx:id="messageLabel"
+                <Label fx:id="bookInfoLabel"
                        style="-fx-text-fill: white; -fx-font-size: 14px;"
                        AnchorPane.topAnchor="150.0"
-                       AnchorPane.leftAnchor="20.0"/>
+                       AnchorPane.leftAnchor="20.0"
+                       AnchorPane.rightAnchor="20.0"/>
             </children>
         </AnchorPane>
     </children>
