@@ -107,7 +107,7 @@ public class LoginController {
     public void handleNavigateToSignUp() {
         try {
             Parent signUpView = FXMLLoader.load(getClass().getResource("/SignUp.fxml"));
-            Scene signUpScene = new Scene(signUpView);
+            Scene signUpScene = new Scene(signUpView, 1024, 768);
             Stage window = (Stage) signUpButton.getScene().getWindow();
             window.setScene(signUpScene);
         } catch (IOException e) {
@@ -122,7 +122,7 @@ public class LoginController {
     public void handleBackToLogin() {
         try {
             Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-            Scene loginScene = new Scene(loginView);
+            Scene loginScene = new Scene(loginView, 1024, 768);
             Stage window = (Stage) backToLoginButton.getScene().getWindow();
             window.setScene(loginScene);
         } catch (IOException e) {
@@ -132,7 +132,7 @@ public class LoginController {
     @FXML
     public void handleBackToLogin(ActionEvent event) throws IOException {
         Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
-        Scene loginScene = new Scene(loginView);
+        Scene loginScene = new Scene(loginView, 1024, 768);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(loginScene);
         window.show();
