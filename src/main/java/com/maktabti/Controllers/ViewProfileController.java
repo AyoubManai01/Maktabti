@@ -18,6 +18,8 @@ public class ViewProfileController {
 
     @FXML
     public void initialize() {
+        System.out.println("✅ ViewProfileController initialized.");
+        System.out.println("Current User ID: " + CurrentUser.getUserId());
         loadProfile();
     }
 
