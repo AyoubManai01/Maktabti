@@ -8,11 +8,15 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maktabti.Controllers.UserController">
+    <stylesheets>
+        <!-- Link to the style.css located in the resources folder -->
+        <String fx:value="/styles.css"/>
+    </stylesheets>
     <children>
         <!-- Main VBox to hold all components -->
         <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
             <!-- TableView for displaying users -->
-            <TableView fx:id="userTable" prefHeight="300.0" prefWidth="770.0">
+            <TableView fx:id="userTable" prefHeight="350.0" prefWidth="770.0" styleClass="table-view">
                 <columns>
                     <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
                     <TableColumn fx:id="usernameColumn" text="Username" prefWidth="200"/>
@@ -21,15 +25,15 @@
             </TableView>
 
             <!-- HBox for the form fields and buttons -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
+            <HBox spacing="15" alignment="CENTER_LEFT">
                 <!-- TextField for username -->
-                <TextField fx:id="usernameField" promptText="Username" prefWidth="150"/>
+                <TextField fx:id="usernameField" promptText="Enter Username" prefWidth="180" styleClass="input-field"/>
 
                 <!-- PasswordField for password -->
-                <PasswordField fx:id="passwordField" promptText="Password" prefWidth="150"/>
+                <PasswordField fx:id="passwordField" promptText="Enter Password" prefWidth="180" styleClass="input-field"/>
 
                 <!-- ComboBox for role selection -->
-                <ComboBox fx:id="roleComboBox" prefWidth="150">
+                <ComboBox fx:id="roleComboBox" prefWidth="180" styleClass="combo-box">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="client"/>
@@ -39,7 +43,7 @@
                 </ComboBox>
 
                 <!-- Button to add a new user -->
-                <Button fx:id="addUserButton" text="Add User" onAction="#addUser" style="-fx-background-color: #009688; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px 10px;"/>
+                <Button fx:id="addUserButton" text="Add User" onAction="#addUser" styleClass="button"/>
             </HBox>
         </VBox>
     </children>
