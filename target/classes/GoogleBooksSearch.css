@@ -1,0 +1,58 @@
+/* General styling */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f0f2f5;
+}
+/* TextField styling */
+.search-field {
+    -fx-pref-width: 300;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #d1d1d1;
+    -fx-background-color: white;
+}
+.search-field:focused {
+    -fx-border-color: #4A90E2;
+    -fx-effect: dropshadow(gaussian, rgba(74, 144, 226, 0.5), 5, 0.3, 0, 2);
+}
+/* Primary button styling */
+.primary-button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.primary-button:hover {
+    -fx-background-color: #357ABD;
+}
+.primary-button:pressed {
+    -fx-background-color: #2C6EA4;
+}
+/* Secondary button styling */
+.secondary-button {
+    -fx-background-color: #d1d1d1;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+}
+.secondary-button:hover {
+    -fx-background-color: #bdbdbd;
+}
+.secondary-button:pressed {
+    -fx-background-color: #a0a0a0;
+}
+/* ListView styling */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #d1d1d1;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
