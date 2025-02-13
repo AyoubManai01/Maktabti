@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -13,13 +14,13 @@
     <Label text="Sign Up" style="-fx-font-size: 24px;"/>
 
     <Label text="Username"/>
-    <TextField fx:id="signUpUsername" promptText="Enter username"/>
+    <TextField fx:id="usernameField" promptText="Enter username"/>
 
     <Label text="Password"/>
-    <PasswordField fx:id="signUpPassword" promptText="Enter password"/>
+    <PasswordField fx:id="passwordField" promptText="Enter password"/>
 
     <Label text="Email"/>
-    <TextField fx:id="signUpEmail" promptText="Enter email"/>
+    <TextField fx:id="emailField" promptText="Enter email"/>
 
     <Label text="Role"/>
     <ComboBox fx:id="roleComboBox">
@@ -31,6 +32,8 @@
         </items>
     </ComboBox>
 
-    <Button fx:id="signUpButton" text="Sign Up" onAction="#handleSignUp" style="-fx-font-size: 14px;"/>
-    <Label fx:id="signUpErrorLabel" />
+    <Button fx:id="signUpButton" text="Sign Up" onAction="#handleShowSignUp" style="-fx-font-size: 14px;"/>
+    <Label fx:id="errorLabel" textFill="red"/>
+
+
 </VBox>

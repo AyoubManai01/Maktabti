@@ -2,33 +2,35 @@ package com.maktabti.Controllers;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
-import com.maktabti.Utils.CurrentUser;
-import com.maktabti.Controllers.EmailService;
+import com.maktabti.Utils.Session;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class LoginController {
-
+    public Button signupButton;
     @FXML private TextField usernameField;
+    @FXML private TextField signUpEmail;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
-    @FXML private Button loginButton;
 
+    @FXML private Button loginButton;
     @FXML private TextField signUpUsername;
     @FXML private PasswordField signUpPassword;
-    @FXML private TextField signUpEmail;
+    
     @FXML private Label signUpErrorLabel;
-    @FXML private Button signUpButton;
+    @FXML private Button signUpButton; // Ensure it's linked in FXML
+    @FXML private Button backToLoginButton; // Ensure it's linked in FXML
 
     private final UserService userService = new UserService();
-    private final EmailService emailService = new EmailService();
 
     /**
      * Handles user login.
@@ -45,24 +47,13 @@ public class LoginController {
 
         User user = userService.authenticate(username, password);
         if (user != null) {
-            // ✅ Store user info in CurrentUser class
-            CurrentUser.setUserId(user.getId());
-            CurrentUser.setEmail(user.getEmail());
-
-            // ✅ Debugging output to ensure user data is stored
-            System.out.println("✅ User Logged In:");
-            System.out.println("   - ID: " + CurrentUser.getUserId());
-            System.out.println("   - Email: " + CurrentUser.getEmail());
-
-            // ✅ Send login email
-            emailService.sendEmail(user.getEmail(), "Login Successful",
-                    "Dear " + user.getUsername() + ",\n\nYou have successfully logged in to your account.");
+            Session.setCurrentUser(user); // Save the user in session
 
             try {
                 Stage stage = (Stage) usernameField.getScene().getWindow();
                 Parent root;
 
-                // ✅ Load correct interface based on role
+                // Load interface based on user role
                 if ("admin".equals(user.getRole())) {
                     root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/AdminMain.fxml")));
                 } else {
@@ -81,29 +72,40 @@ public class LoginController {
         }
     }
 
-    /**
-     * Handles user sign-up.
-     */
     @FXML
     public void handleSignUp() {
-        String username = signUpUsername.getText();
-        String password = signUpPassword.getText();
-        String email = signUpEmail.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String email = signUpEmail.getText(); // Assuming you have an email field
 
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
-            signUpErrorLabel.setText("All fields must be filled out.");
+            if (errorLabel != null) {
+                errorLabel.setText("All fields must be filled out.");
+            } else {
+                System.out.println("Error: errorLabel is null.");
+            }
             return;
         }
 
+        // Assuming you have a service to handle user registration
         boolean isUserCreated = userService.createUser(username, password, email);
-        if (isUserCreated) {
-            // ✅ Send welcome email
-            emailService.sendEmail(email, "Account Created Successfully",
-                    "Dear " + username + ",\n\nYour account has been successfully created. You can now log in.");
 
-            signUpErrorLabel.setText("Sign-up successful! You can now log in.");
+        if (isUserCreated) {
+            if (errorLabel != null) {
+                errorLabel.setText("Sign-up successful! You can now log in.");
+            } else {
+                System.out.println("Error: errorLabel is null.");
+            }
         } else {
-            signUpErrorLabel.setText("Error during sign-up. Please try again.");
+            if (errorLabel != null) {
+                errorLabel.setText("Error during sign-up. Please try again.");
+            } else {
+                System.out.println("Error: errorLabel is null.");
+            }
         }
     }
+
+
+
+
 }
