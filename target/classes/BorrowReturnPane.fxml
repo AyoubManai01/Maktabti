@@ -12,13 +12,13 @@
                     AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0">
             <children>
 
-                <Label text="Enter Book ID:"
+                <Label text="Enter Book Name:"
                        style="-fx-text-fill: white; -fx-font-size: 14px;"
                        AnchorPane.topAnchor="40.0"
                        AnchorPane.leftAnchor="20.0"
                        AnchorPane.rightAnchor="20.0"/>
 
-                <TextField fx:id="bookIdField" promptText="Book ID"
+                <TextField fx:id="bookIdField" promptText="Book Name"
                            style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-text-fill: black;"
                            AnchorPane.topAnchor="70.0"
                            AnchorPane.leftAnchor="20.0"

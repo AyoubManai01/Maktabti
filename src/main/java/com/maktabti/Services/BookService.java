@@ -59,31 +59,75 @@ public class BookService {
         return false;
     }
 
-    public boolean borrowBook(int bookId) {
+    public boolean borrowBookByName(String bookName) {
         try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE books SET available_copies = available_copies - 1 WHERE id = ? AND available_copies > 0"
+            // Check if the book is available
+            PreparedStatement checkStmt = conn.prepareStatement(
+                    "SELECT id, available_copies FROM books WHERE title = ? AND available_copies > 0"
             );
-            ps.setInt(1, bookId);
-            int affected = ps.executeUpdate();
-            return affected > 0;
+            checkStmt.setString(1, bookName);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                int bookId = rs.getInt("id");
+                int availableCopies = rs.getInt("available_copies");
+
+                if (availableCopies > 0) {
+                    // Update the available copies
+                    PreparedStatement updateStmt = conn.prepareStatement(
+                            "UPDATE books SET available_copies = available_copies - 1 WHERE id = ?"
+                    );
+                    updateStmt.setInt(1, bookId);
+                    int affectedRows = updateStmt.executeUpdate();
+                    return affectedRows > 0;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean returnBook(int bookId) {
+    public int getBookIdByName(String bookName) {
         try (Connection conn = DBUtil.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE books SET available_copies = available_copies + 1 WHERE id = ?"
+                    "SELECT id FROM books WHERE title = ?"
             );
-            ps.setInt(1, bookId);
-            int affected = ps.executeUpdate();
-            return affected > 0;
+            ps.setString(1, bookName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id"); // Return the book ID
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1; // Return -1 if the book is not found
+    }
+
+
+    public boolean returnBookByName(String bookName) {
+        try (Connection conn = DBUtil.getConnection()) {
+            // Get the book ID
+            PreparedStatement checkStmt = conn.prepareStatement(
+                    "SELECT id FROM books WHERE title = ?"
+            );
+            checkStmt.setString(1, bookName);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next()) {
+                int bookId = rs.getInt("id");
+
+                // Update the available copies
+                PreparedStatement updateStmt = conn.prepareStatement(
+                        "UPDATE books SET available_copies = available_copies + 1 WHERE id = ?"
+                );
+                updateStmt.setInt(1, bookId);
+                int affectedRows = updateStmt.executeUpdate();
+                return affectedRows > 0;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
+
+
 }
