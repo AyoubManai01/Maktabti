@@ -18,6 +18,7 @@ com\maktabti\Controllers\BookController$1.class
 com\maktabti\Controllers\OrderBookController.class
 com\maktabti\Controllers\UserController.class
 com\maktabti\Controllers\BookController.class
+com\maktabti\Controllers\TransactionController$1.class
 com\maktabti\Entities\User.class
 com\maktabti\Main.class
 com\maktabti\Controllers\MainController.class

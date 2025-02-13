@@ -2,10 +2,12 @@ package com.maktabti.Services;
 
 import com.maktabti.Entities.Transaction;
 import com.maktabti.Utils.DBUtil;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionService {
 
@@ -42,16 +44,17 @@ public class TransactionService {
         }
     }
 
-
-    public boolean removeTransaction(int transactionId) {
-        try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM transactions WHERE id = ?");
-            ps.setInt(1, transactionId);
-            int affected = ps.executeUpdate();
-            return affected > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public List<Transaction> searchTransactions(String filter, String query) {
+        return getAllTransactions().stream()
+                .filter(transaction -> {
+                    switch (filter) {
+                        case "User ID": return String.valueOf(transaction.getUserId()).contains(query);
+                        case "Book ID": return String.valueOf(transaction.getBookId()).contains(query);
+                        case "Type": return transaction.getType().equalsIgnoreCase(query);
+                        case "Date": return transaction.getTransactionDate().toString().contains(query);
+                        default: return false;
+                    }
+                })
+                .collect(Collectors.toList());
     }
 }
