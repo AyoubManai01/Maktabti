@@ -57,7 +57,7 @@ public class BookController {
     private final ObservableList<Book> bookList = FXCollections.observableArrayList();
 
     // Flag: false = normal (table) view, true = catalog view
-    private boolean isCatalogView = false;
+    private boolean isCatalogView = true;
 
     @FXML
     public void initialize() {
@@ -103,6 +103,9 @@ public class BookController {
         if (addGoogleBookButton != null) {
             addGoogleBookButton.setOnAction(e -> addGoogleBook());
         }
+        if (catalogView != null) catalogView.setVisible(true);
+        if (normalView != null) normalView.setVisible(false);
+        refreshCatalog();
     }
 
     private void refreshTable() {
@@ -283,7 +286,6 @@ public class BookController {
             // Switch to normal view
             if (normalView != null) normalView.setVisible(true);
             if (catalogView != null) catalogView.setVisible(false);
-            isCatalogView = false;
             refreshTable();
         } else {
             // Switch to catalog view
@@ -292,8 +294,8 @@ public class BookController {
                 catalogView.setVisible(true);
                 refreshCatalog();
             }
-            isCatalogView = true;
         }
+        isCatalogView = !isCatalogView; // Toggle state
     }
 
     // ---------- Catalog Grid Builder ----------
