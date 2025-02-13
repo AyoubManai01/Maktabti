@@ -106,7 +106,12 @@ public class BookController {
         if (catalogView != null) catalogView.setVisible(true);
         if (normalView != null) normalView.setVisible(false);
         refreshCatalog();
+        if (logoImageView != null) {
+            logoImageView.setImage(new Image(getClass().getResourceAsStream("/google-bg.jpg")));
+        }
     }
+    @FXML
+    private ImageView logoImageView;
 
     private void refreshTable() {
         bookList.setAll(bookService.getAllBooks());

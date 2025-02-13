@@ -84,8 +84,8 @@ public class SubscriptionService {
         List<Transaction> transactions = new ArrayList<>();
         String sql = "SELECT t.id, t.user_id, t.book_id, t.transaction_date, t.type " +
                 "FROM transactions t " +
-                "JOIN subscriptions s ON s.email= ? " +
-                "WHERE t.user_id = s.id"; // Assuming `subscriptions` table has a `userId` column
+                "JOIN users u ON t.user_id = u.id " +
+                "WHERE u.email = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, email); // Use email to fetch the userId

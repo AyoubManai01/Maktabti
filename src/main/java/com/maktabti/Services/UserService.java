@@ -36,6 +36,29 @@ public class UserService {
     }
 
     /**
+     * Fetches a user by their ID from the database.
+     */
+    public User getUserById(int id) {
+        try (Connection conn = DBUtil.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role"),
+                        rs.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // Return null if the user is not found
+    }
+
+    /**
      * Adds a new user to the database.
      */
     public boolean addUser(User user) {
