@@ -2,6 +2,7 @@ package com.maktabti.Controllers;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Services.UserService;
+import com.maktabti.Utils.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,6 +39,7 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+
         if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Username and password cannot be empty.");
             return;
@@ -52,6 +54,8 @@ public class LoginController {
         } else {
             errorLabel.setText("Invalid credentials. Please try again.");
         }
+        CurrentUser.setUserId(user.getId());
+        CurrentUser.setEmail(user.getEmail());
     }
 
     /**
