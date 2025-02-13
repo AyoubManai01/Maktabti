@@ -13,10 +13,9 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.Stack;
 
 public class TransactionController {
 
@@ -43,12 +42,15 @@ public class TransactionController {
     @FXML
     private Button deleteTransactionButton;
     @FXML
-    private Button exportCsvButton; // New Export Button
+    private Button exportCsvButton;
+    @FXML
+    private Button undoButton;  // Undo Button
     @FXML
     private TextField searchField;
 
     private TransactionService transactionService = new TransactionService();
     private ObservableList<Transaction> transactionList = FXCollections.observableArrayList();
+    private Stack<Transaction> undoStack = new Stack<>();
 
     @FXML
     public void initialize() {
@@ -76,6 +78,7 @@ public class TransactionController {
         });
 
         refreshTable(); // Initial load of all data
+        updateUndoButton();
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -110,7 +113,12 @@ public class TransactionController {
 
             Transaction transaction = new Transaction(0, userId, bookId, LocalDateTime.now(), type);
             transactionService.addTransaction(transaction);
+
+            // Push the added transaction to the undo stack
+            undoStack.push(transaction);
+
             refreshTable();
+            updateUndoButton();
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numeric values for User ID and Book ID.");
         } catch (Exception e) {
@@ -126,18 +134,44 @@ public class TransactionController {
         if (selectedTransaction != null) {
             int transactionId = selectedTransaction.getId();
             transactionService.deleteTransaction(transactionId);
+
+            // Push the deleted transaction to the undo stack
+            undoStack.push(selectedTransaction);
+
             refreshTable();
+            updateUndoButton();
             showAlert(Alert.AlertType.INFORMATION, "Transaction Deleted", "The transaction has been successfully deleted.");
         } else {
             showAlert(Alert.AlertType.WARNING, "No Selection", "Please select a transaction to delete.");
         }
     }
 
+    // Method to perform undo action
     @FXML
+    private void undoTransaction() {
+        if (!undoStack.isEmpty()) {
+            Transaction lastTransaction = undoStack.pop();
+
+            // Reverse the action based on whether the last transaction was an add or delete
+            if (lastTransaction.getId() == 0) {
+                transactionService.deleteTransaction(lastTransaction.getId()); // Undo add
+            } else {
+                transactionService.addTransaction(lastTransaction); // Undo delete
+            }
+
+            refreshTable();
+            updateUndoButton();
+        }
+    }
+
     private void refreshTable() {
         transactionList.clear();
         transactionList.addAll(transactionService.getAllTransactions());
         transactionTable.setItems(transactionList);
+    }
+
+    private void updateUndoButton() {
+        undoButton.setDisable(undoStack.isEmpty());
     }
 
     private void updateTable(int userId) {
@@ -146,7 +180,6 @@ public class TransactionController {
         transactionTable.setItems(transactionList);
     }
 
-    // New method to export transactions to CSV
     @FXML
     private void exportTransactions() {
         FileChooser fileChooser = new FileChooser();
