@@ -195,22 +195,5 @@ public class UserController {
         }
     }
 
-    // ---------- Inner Class for Google Books results (unchanged) ----------
-    private static class GoogleBook {
-        private final String title;
-        private final String author;
-        private final String isbn;
-        private final String coverUrl;
 
-        public GoogleBook(String title, String author, String isbn, String coverUrl) {
-            this.title = title;
-            this.author = author;
-            this.isbn = isbn;
-            this.coverUrl = coverUrl;
-        }
-        public String getTitle() { return title; }
-        public String getAuthor() { return author; }
-        public String getIsbn() { return isbn; }
-        public String getCoverUrl() { return coverUrl; }
-    }
 }
