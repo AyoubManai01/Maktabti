@@ -10,7 +10,6 @@ com\maktabti\Main.class
 com\maktabti\Entities\Transaction.class
 com\maktabti\Services\SubscriptionService.class
 com\maktabti\Controllers\SubscriptionController$2.class
-com\maktabti\Services\UserAPI.class
 com\maktabti\Controllers\SubscriptionController.class
 com\maktabti\Entities\Book.class
 com\maktabti\Controllers\BookController$GoogleBook.class
