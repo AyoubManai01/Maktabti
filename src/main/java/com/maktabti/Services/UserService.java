@@ -2,6 +2,7 @@ package com.maktabti.Services;
 
 import com.maktabti.Entities.User;
 import com.maktabti.Utils.DBUtil;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -221,5 +222,38 @@ public class UserService {
             e.printStackTrace();
         }
         return null; // Return null in case of hashing failure
+    }
+    public JSONObject getUserStatistics() {
+        JSONObject stats = new JSONObject();
+        int totalUsers = 0;
+        int adminCount = 0;
+        int clientCount = 0;
+
+        String sql = "SELECT role, COUNT(*) as count FROM users GROUP BY role";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                String role = rs.getString("role");
+                int count = rs.getInt("count");
+                totalUsers += count;
+                if ("admin".equalsIgnoreCase(role)) {
+                    adminCount = count;
+                } else if ("client".equalsIgnoreCase(role)) {
+                    clientCount = count;
+                }
+            }
+
+            stats.put("totalUsers", totalUsers);
+            stats.put("adminCount", adminCount);
+            stats.put("clientCount", clientCount);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return stats;
     }
 }
