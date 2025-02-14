@@ -92,31 +92,10 @@ public class ViewProfileController {
         payFineButton.setText("Processing...");
 
         try {
-            // Create a Checkout Session with Stripe
-            Map<String, Object> params = new HashMap<>();
-            params.put("success_url", "http://localhost:8080/success");  // URL after successful payment
-            params.put("cancel_url", "http://localhost:8080/cancel");    // URL if payment is canceled
-            params.put("mode", "payment");
-            params.put("payment_method_types", new String[]{"card"});
-
-            // Add line item for the fine amount
-            Map<String, Object> lineItem = new HashMap<>();
-            lineItem.put("price_data", Map.of(
-                    "currency", "usd",
-                    "product_data", Map.of("name", "Fine Payment"),
-                    "unit_amount", (int) (currentFine * 100)  // Convert to cents
-            ));
-            lineItem.put("quantity", 1);
-
-            params.put("line_items", new Map[]{lineItem});
-
-            // Create the Checkout Session
-            Session session = Session.create(params);
-
             // Open the Stripe payment page in the browser
-            Desktop.getDesktop().browse(new URI(session.getCurrency()));
+            Desktop.getDesktop().browse(new URI("https://buy.stripe.com/test_aEU18b3pl1FFdmU9AA"));
 
-            // Update UI after payment
+            // Simulate successful payment for UI purposes
             loadingIndicator.setVisible(false);
             payFineButton.setText("Pay Fine");
 
@@ -132,6 +111,7 @@ public class ViewProfileController {
             payFineButton.setText("Pay Fine");
         }
     }
+
 
     private void updateFineToZero() {
         int userId = CurrentUser.getUserId();
