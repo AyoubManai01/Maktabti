@@ -1,28 +1,49 @@
 package com.maktabti.Services;
 
 import com.maktabti.Entities.Subscription;
-import com.maktabti.Utils.DBUtil;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.maktabti.Entities.Transaction;
+
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubscriptionService {
 
+    private Connection connection;
+
+    public SubscriptionService() throws SQLException {
+        this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/maktabti_db", "root", "");
+    }
+
+    // Add a new subscription to the database
+    public void addSubscription(Subscription subscription) {
+        String query = "INSERT INTO subscriptions (user_id, start_date, end_date, fine) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, getUserIdByEmail(subscription.getEmail()));
+            stmt.setDate(2, Date.valueOf(subscription.getStartDate()));
+            stmt.setDate(3, Date.valueOf(subscription.getEndDate()));
+            stmt.setDouble(4, subscription.getFine());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Get all subscriptions
     public List<Subscription> getAllSubscriptions() {
         List<Subscription> subscriptions = new ArrayList<>();
-        try (Connection conn = DBUtil.getConnection()) {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM subscriptions");
+        String query = "SELECT s.id, u.email, s.start_date, s.end_date, s.fine FROM subscriptions s JOIN users u ON s.user_id = u.id";
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                Subscription s = new Subscription(rs.getInt("id"),
+                Subscription subscription = new Subscription(
+                        rs.getInt("id"),
                         rs.getString("email"),
                         rs.getDate("start_date").toLocalDate(),
                         rs.getDate("end_date").toLocalDate(),
-                        rs.getDouble("fine"));
-                subscriptions.add(s);
+                        rs.getDouble("fine")
+                );
+                subscriptions.add(subscription);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,59 +51,59 @@ public class SubscriptionService {
         return subscriptions;
     }
 
-    public void addSubscription(Subscription subscription) {
-        try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO subscriptions (email, start_date, end_date, fine) VALUES (?, ?, ?, ?)");
-            ps.setString(1, subscription.getEmail());
-            ps.setDate(2, Date.valueOf(subscription.getStartDate()));
-            ps.setDate(3, Date.valueOf(subscription.getEndDate()));
-            ps.setDouble(4, subscription.getFine());
-            ps.executeUpdate();
+    // Get the user ID by email (used to relate subscriptions to users)
+    private int getUserIdByEmail(String email) {
+        String query = "SELECT id FROM users WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return -1; // If no user found
     }
 
+    // Remove a subscription by ID
     public boolean removeSubscription(int subscriptionId) {
-        try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM subscriptions WHERE id = ?");
-            ps.setInt(1, subscriptionId);
-            int affected = ps.executeUpdate();
-            return affected > 0;
+        String sql = "DELETE FROM subscriptions WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, subscriptionId);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public List<String[]> getBorrowHistory(String email) {
-        List<String[]> history = new ArrayList<>();
-        try (Connection conn = DBUtil.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT book_title, borrow_date, return_date FROM borrows WHERE user_email = ?");
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String returnDate = (rs.getDate("return_date") != null) ? rs.getDate("return_date").toString() : "Not Returned";
-                history.add(new String[]{rs.getString("book_title"), rs.getDate("borrow_date").toString(), returnDate});
+    // Get transactions for a specific email
+    public List<Transaction> getTransactionsByEmail(String email) {
+        List<Transaction> transactions = new ArrayList<>();
+        String sql = "SELECT t.id, t.user_id, t.book_id, t.transaction_date, t.type " +
+                "FROM transactions t " +
+                "JOIN users u ON t.user_id = u.id " +
+                "WHERE u.email = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email); // Use email to fetch the userId
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Transaction transaction = new Transaction(
+                            rs.getInt("id"),
+                            rs.getInt("user_id"),
+                            rs.getInt("book_id"),
+                            rs.getTimestamp("transaction_date").toLocalDateTime(), // Convert to LocalDateTime
+                            rs.getString("type")
+                    );
+                    transactions.add(transaction);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return history;
-    }
-
-    public void exportBorrowHistoryToCSV(String email) {
-        List<String[]> history = getBorrowHistory(email);
-        String fileName = "borrow_history_" + email.replace("@", "_at_") + ".csv";
-        try (FileWriter writer = new FileWriter(fileName)) {
-            writer.append("Book Title,Borrow Date,Return Date\n");
-            for (String[] record : history) {
-                writer.append(String.join(",", record)).append("\n");
-            }
-            System.out.println("CSV file created: " + fileName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return transactions;
     }
 }

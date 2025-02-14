@@ -12,17 +12,31 @@ public class AdminMainController {
 
     @FXML
     public void initialize() {
-        showBooks(); // Default view
+        showBooks(); // Load the table view by default
     }
 
-    @FXML public void showBooks() { loadContent("/AdminBookPane.fxml"); }
-    @FXML public void showUsers() { loadContent("/UserPane.fxml"); }
-    @FXML public void showTransactions() { loadContent("/TransactionPane.fxml"); }
-    @FXML public void showSubscriptions() { loadContent("/SubscriptionPane.fxml"); }
-    @FXML public void showBorrowReturn() { loadContent("/BorrowReturnPane.fxml"); }
-    @FXML public void openGoogleBooksSearch() { loadContent("/GoogleBooksSearch.fxml"); }
+    @FXML
+    public void showBooks() {
+        loadContent("/AdminBookPane.fxml");
+    }
 
-    @FXML public void logout() {
+    @FXML
+    public void showUsers() { loadContent("/UserPane.fxml"); }
+
+    @FXML
+    public void showTransactions() { loadContent("/TransactionPane.fxml"); }
+
+    @FXML
+    public void showSubscriptions() { loadContent("/SubscriptionPane.fxml"); }
+
+    @FXML
+    public void showBorrowReturn() { loadContent("/BorrowReturnPane.fxml"); }
+
+    @FXML
+    public void openGoogleBooksSearch() { loadContent("/GoogleBooksSearch.fxml"); }
+
+    @FXML
+    public void logout() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
             Stage stage = (Stage) contentPane.getScene().getWindow();
