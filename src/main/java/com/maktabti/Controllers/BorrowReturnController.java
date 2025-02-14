@@ -4,15 +4,12 @@ import com.maktabti.Services.BookService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
 public class BorrowReturnController {
 
     @FXML
     private TextField bookIdField; // TextField to input book name
-    @FXML
-    private Label bookInfoLabel; // Label to display book information
     @FXML
     private Button searchButton; // Search button
 
@@ -33,9 +30,11 @@ public class BorrowReturnController {
             return;
         }
 
-        // Fetch and display book info from Open Library API and check availability
+        // Fetch book info from Open Library API and check availability
         String bookInfo = bookService.fetchBookDetailsAndCheckAvailability(bookName);
-        bookInfoLabel.setText(bookInfo);
+
+        // Show book information in a popup
+        showBookInfoPopup("Book Information", bookInfo);
     }
 
     @FXML
@@ -97,4 +96,13 @@ public class BorrowReturnController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    private void showBookInfoPopup(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText("Book Details");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
+
