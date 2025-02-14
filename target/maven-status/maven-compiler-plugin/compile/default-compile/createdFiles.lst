@@ -3,7 +3,6 @@ com\maktabti\Entities\Subscription.class
 com\maktabti\Controllers\EmailService.class
 com\maktabti\Controllers\AdminMainController.class
 com\maktabti\Controllers\SubscriptionController$1.class
-com\maktabti\Controllers\UserController$GoogleBook.class
 com\maktabti\Services\BookService.class
 com\maktabti\Utils\CurrentUser.class
 com\maktabti\Controllers\BookController$1.class
