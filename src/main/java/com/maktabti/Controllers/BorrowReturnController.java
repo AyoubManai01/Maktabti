@@ -4,15 +4,12 @@ import com.maktabti.Services.BookService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 
 public class BorrowReturnController {
 
     @FXML
     private TextField bookIdField; // TextField to input book name
-    @FXML
-    private Label bookInfoLabel; // Label to display book information
     @FXML
     private Button searchButton; // Search button
 
@@ -33,9 +30,11 @@ public class BorrowReturnController {
             return;
         }
 
-        // Fetch and display book info from Open Library API and check availability
+        // Fetch book info from Open Library API and check availability
         String bookInfo = bookService.fetchBookDetailsAndCheckAvailability(bookName);
-        bookInfoLabel.setText(bookInfo);
+
+        // Show book information in a popup
+        showBookInfoPopup("Book Information", bookInfo);
     }
 
     @FXML
@@ -43,12 +42,6 @@ public class BorrowReturnController {
         String bookName = bookIdField.getText().trim(); // Get the book name
         if (bookName.isEmpty()) {
             showErrorPopup("Error", "Please enter a valid book name.");
-            return;
-        }
-
-        int bookId = bookService.getBookIdByName(bookName); // Retrieve the book ID
-        if (bookId == -1) {
-            showErrorPopup("Error", "Book not found. Check the book name.");
             return;
         }
 
@@ -65,12 +58,6 @@ public class BorrowReturnController {
         String bookName = bookIdField.getText().trim(); // Get the book name
         if (bookName.isEmpty()) {
             showErrorPopup("Error", "Please enter a valid book name.");
-            return;
-        }
-
-        int bookId = bookService.getBookIdByName(bookName); // Retrieve the book ID
-        if (bookId == -1) {
-            showErrorPopup("Error", "Book not found. Check the book name.");
             return;
         }
 
@@ -94,6 +81,14 @@ public class BorrowReturnController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showBookInfoPopup(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText("Book Details");
         alert.setContentText(message);
         alert.showAndWait();
     }

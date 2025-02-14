@@ -5,10 +5,14 @@ import com.maktabti.Services.UserService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.json.JSONObject;
+import javafx.stage.Stage;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,7 @@ public class UserController {
     @FXML private Button addUserButton;
     @FXML private Button editUserButton;
     @FXML private Button deleteUserButton;
-    @FXML private Button showStatsButton;  // New button for statistics
+    @FXML private Button showStatsButton; // New Statistics button
 
     private UserService userService = new UserService();
     private ObservableList<User> userList = FXCollections.observableArrayList();
@@ -156,6 +160,8 @@ public class UserController {
         userTable.setItems(userList);
     }
 
+
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -172,45 +178,15 @@ public class UserController {
         return alert.showAndWait().orElse(null) == ButtonType.OK;
     }
 
-    // ---------- New Method: Show User Statistics using data from the database ----------
+    // ---------- New Method: Show User Statistics View ----------
     @FXML
     private void showStatistics() {
         try {
-            // Call the new service method to get statistics from the users table in maktabti_db
-            JSONObject stats = userService.getUserStatistics();
-            int totalUsers = stats.optInt("totalUsers", 0);
-            int adminCount = stats.optInt("adminCount", 0);
-            int clientCount = stats.optInt("clientCount", 0);
-            String statsMessage = "User Statistics:\n\nTotal Users: " + totalUsers +
-                    "\nAdmins: " + adminCount +
-                    "\nClients: " + clientCount;
-            Alert statsAlert = new Alert(Alert.AlertType.INFORMATION);
-            statsAlert.setTitle("User Statistics");
-            statsAlert.setHeaderText("Statistics from Database");
-            statsAlert.setContentText(statsMessage);
-            statsAlert.showAndWait();
-        } catch (Exception e) {
+            Parent root = FXMLLoader.load(getClass().getResource("/Statistics.fxml"));
+            Stage stage = (Stage) searchField.getScene().getWindow();
+            stage.getScene().setRoot(root);
+        } catch(Exception e) {
             e.printStackTrace();
-            showAlert("Error", "Unable to fetch user statistics from the database.");
         }
-    }
-
-    // ---------- Inner Class for Google Books results (unchanged) ----------
-    private static class GoogleBook {
-        private final String title;
-        private final String author;
-        private final String isbn;
-        private final String coverUrl;
-
-        public GoogleBook(String title, String author, String isbn, String coverUrl) {
-            this.title = title;
-            this.author = author;
-            this.isbn = isbn;
-            this.coverUrl = coverUrl;
-        }
-        public String getTitle() { return title; }
-        public String getAuthor() { return author; }
-        public String getIsbn() { return isbn; }
-        public String getCoverUrl() { return coverUrl; }
     }
 }

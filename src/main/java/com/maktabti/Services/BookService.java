@@ -138,7 +138,7 @@ public class BookService {
         return false;
     }
 
-    // Fetch book details from Open Library API
+
     // Fetch book details from Open Library API and check if it exists in the local database
     public String fetchBookDetailsAndCheckAvailability(String bookTitle) {
         try {
@@ -155,7 +155,15 @@ public class BookService {
                 JsonObject book = docs.get(0).getAsJsonObject();
                 String title = book.has("title") ? book.get("title").getAsString() : "Unknown Title";
                 String author = book.has("author_name") ? book.getAsJsonArray("author_name").get(0).getAsString() : "Unknown Author";
-                String isbn = book.has("isbn") ? book.getAsJsonArray("isbn").get(0).getAsString() : "ISBN Not Available";
+
+                // Handle ISBN retrieval
+                String isbn = "ISBN Not Available";
+                if (book.has("isbn")) {
+                    JsonArray isbns = book.getAsJsonArray("isbn");
+                    if (isbns != null && isbns.size() > 0) {
+                        isbn = isbns.get(0).getAsString(); // Use the first ISBN in the array
+                    }
+                }
 
                 // Check if the book exists in the local database
                 int availableCopies = getAvailableCopiesByTitle(title);
