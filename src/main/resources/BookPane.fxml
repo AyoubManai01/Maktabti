@@ -19,7 +19,7 @@
             <HBox spacing="10">
                 <TextField fx:id="searchField" promptText="Search books..." HBox.hgrow="ALWAYS"/>
                 <Button text="Search" onAction="#searchBooks" styleClass="button"/>
-                <Button text="Switch View" onAction="#switchBooksView" styleClass="button"/>
+
             </HBox>
             <!-- View Container: holds both the normal (table) view and the catalog (grid) view -->
             <StackPane VBox.vgrow="ALWAYS">

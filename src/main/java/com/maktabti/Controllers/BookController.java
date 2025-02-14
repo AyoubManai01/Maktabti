@@ -53,6 +53,8 @@ public class BookController {
     @FXML private AnchorPane catalogView; // Container for the catalog view
     @FXML private FlowPane catalogPane;   // Grid to display book cards
 
+    @FXML private ImageView logoImageView;
+
     private final BookService bookService = new BookService();
     private final ObservableList<Book> bookList = FXCollections.observableArrayList();
 
@@ -61,15 +63,16 @@ public class BookController {
 
     @FXML
     public void initialize() {
-        // Set default: normal view visible, catalog view hidden.
-        if (normalView != null) {
-            normalView.setVisible(true);
-        }
+        // In client mode, we want the catalog view to show by default.
         if (catalogView != null) {
-            catalogView.setVisible(false);
+            catalogView.setVisible(true);
         }
+        if (normalView != null) {
+            normalView.setVisible(false);
+        }
+        refreshCatalog();
 
-        // Initialize the table view if present
+        // Initialize the table view if present (for admin view)
         if (idColumn != null && titleColumn != null && authorColumn != null && isbnColumn != null && copiesColumn != null) {
             idColumn.setCellValueFactory(cellData ->
                     new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
@@ -99,19 +102,13 @@ public class BookController {
                 }
             });
         }
-
         if (addGoogleBookButton != null) {
             addGoogleBookButton.setOnAction(e -> addGoogleBook());
         }
-        if (catalogView != null) catalogView.setVisible(true);
-        if (normalView != null) normalView.setVisible(false);
-        refreshCatalog();
         if (logoImageView != null) {
             logoImageView.setImage(new Image(getClass().getResourceAsStream("/google-bg.jpg")));
         }
     }
-    @FXML
-    private ImageView logoImageView;
 
     private void refreshTable() {
         bookList.setAll(bookService.getAllBooks());
@@ -123,21 +120,21 @@ public class BookController {
     @FXML
     public void searchBooks() {
         String query = searchField.getText().trim().toLowerCase();
-        bookList.setAll(bookService.getAllBooks().stream().filter(b ->
+        List<Book> filteredBooks = bookService.getAllBooks().stream().filter(b ->
                 b.getTitle().toLowerCase().contains(query) ||
                         b.getAuthor().toLowerCase().contains(query) ||
                         b.getIsbn().toLowerCase().contains(query)
-        ).toList());
+        ).toList();
+        bookList.setAll(filteredBooks);
         if (!isCatalogView && bookTable != null) {
             bookTable.setItems(bookList);
         } else if (isCatalogView) {
-            refreshCatalog();
+            updateCatalogView(filteredBooks);
         }
     }
 
     @FXML
     public void removeBook() {
-        // For table view removal (additional logic can be added for catalog view selection)
         Book selected = bookTable.getSelectionModel().getSelectedItem();
         if (selected != null && bookService.removeBook(selected.getId())) {
             refreshTable();
@@ -161,7 +158,6 @@ public class BookController {
                 showAlert(Alert.AlertType.WARNING, "Please fill all fields.");
                 return;
             }
-            // When manually adding, we set coverUrl to an empty string.
             bookService.addBook(new Book(0, title, author, isbn, availableCopies, ""));
             titleField.clear();
             authorField.clear();
@@ -247,7 +243,6 @@ public class BookController {
             GoogleBook selected = resultsList.getSelectionModel().getSelectedItem();
             if (selected != null) {
                 int numberOfCopies = Integer.parseInt(numberOfCopiesField.getText().trim());
-                // Create a new Book using the details from GoogleBook (include coverUrl)
                 Book newBook = new Book(0, selected.getTitle(), selected.getAuthor(), selected.getIsbn(), numberOfCopies, selected.getCoverUrl());
                 bookService.addBook(newBook);
                 refreshTable();
@@ -308,14 +303,18 @@ public class BookController {
         if (catalogPane == null) return;
         catalogPane.getChildren().clear();
         List<Book> books = bookService.getAllBooks();
+        updateCatalogView(books);
+    }
+
+    // Helper method to update catalog view with a given list of books
+    private void updateCatalogView(List<Book> books) {
+        catalogPane.getChildren().clear();
         for (Book book : books) {
-            // Create a card for each book
             VBox card = new VBox(10);
             card.setStyle("-fx-background-color: white; -fx-border-color: #ccc; -fx-padding: 10; " +
                     "-fx-background-radius: 8; -fx-border-radius: 8;");
             card.setPrefWidth(150);
 
-            // Create an ImageView for the cover image
             ImageView coverImageView = new ImageView();
             coverImageView.setFitWidth(120);
             coverImageView.setPreserveRatio(true);
@@ -323,11 +322,9 @@ public class BookController {
             if (coverUrl != null && !coverUrl.isEmpty()) {
                 coverImageView.setImage(new Image(coverUrl, true));
             } else {
-                // Use a placeholder image (ensure placeholder.png exists in your resources)
                 coverImageView.setImage(new Image(getClass().getResourceAsStream("/placeholder.png")));
             }
 
-            // Labels for title and author
             Label titleLabel = new Label(book.getTitle());
             titleLabel.setStyle("-fx-font-weight: bold; -fx-wrap-text: true;");
             titleLabel.setMaxWidth(120);
@@ -335,7 +332,7 @@ public class BookController {
             authorLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #555;");
 
             card.getChildren().addAll(coverImageView, titleLabel, authorLabel);
-            // Optionally, add a click handler to show more details
+            // Optionally add click handler to show details
             card.setOnMouseClicked(e -> {
                 // TODO: Show book details in a new view or popup if desired
             });
