@@ -22,4 +22,5 @@ com\maktabti\Controllers\OrderBookController.class
 com\maktabti\Controllers\UserController.class
 com\maktabti\Controllers\BookController.class
 com\maktabti\Entities\User.class
+com\maktabti\Controllers\userStatisticsController.class
 com\maktabti\Controllers\MainController.class

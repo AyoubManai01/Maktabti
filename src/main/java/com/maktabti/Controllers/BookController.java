@@ -43,7 +43,7 @@ public class BookController {
     @FXML private TextField copiesField;
 
     // ----- Google Books Search Fields -----
-    @FXML private TextField searchField1;
+    @FXML private static TextField searchField1;
     @FXML private Button searchButton;
     @FXML private ListView<GoogleBook> resultsList;
     @FXML private Button addGoogleBookButton;

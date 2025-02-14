@@ -45,12 +45,6 @@ public class BorrowReturnController {
             return;
         }
 
-        int bookId = bookService.getBookIdByName(bookName); // Retrieve the book ID
-        if (bookId == -1) {
-            showErrorPopup("Error", "Book not found. Check the book name.");
-            return;
-        }
-
         boolean success = bookService.borrowBookByName(bookName); // Borrow the book
         if (success) {
             showSuccessPopup("Success", "The book was borrowed successfully.");
@@ -64,12 +58,6 @@ public class BorrowReturnController {
         String bookName = bookIdField.getText().trim(); // Get the book name
         if (bookName.isEmpty()) {
             showErrorPopup("Error", "Please enter a valid book name.");
-            return;
-        }
-
-        int bookId = bookService.getBookIdByName(bookName); // Retrieve the book ID
-        if (bookId == -1) {
-            showErrorPopup("Error", "Book not found. Check the book name.");
             return;
         }
 

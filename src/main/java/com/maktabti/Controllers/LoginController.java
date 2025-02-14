@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginController {
 
@@ -39,9 +41,8 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-
         if (username.isEmpty() || password.isEmpty()) {
-            errorLabel.setText("Username and password cannot be empty.");
+            showAlert("Error", "Username and password cannot be empty.", Alert.AlertType.ERROR);
             return;
         }
 
@@ -52,7 +53,7 @@ public class LoginController {
             // Navigate to the main application screen
             navigateToMainApp(user);
         } else {
-            errorLabel.setText("Invalid credentials. Please try again.");
+            showAlert("Error", "Invalid credentials. Please try again.", Alert.AlertType.ERROR);
         }
         CurrentUser.setUserId(user.getId());
         CurrentUser.setEmail(user.getEmail());
@@ -68,7 +69,12 @@ public class LoginController {
         String email = signUpEmail.getText();
 
         if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
-            signUpErrorLabel.setText("All fields must be filled out.");
+            showAlert("Error", "All fields must be filled out.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showAlert("Error", "Invalid email format. Please enter a valid email.", Alert.AlertType.ERROR);
             return;
         }
 
@@ -77,7 +83,7 @@ public class LoginController {
         if (isUserCreated) {
             signUpErrorLabel.setText("Sign-up successful! You can now log in.");
         } else {
-            signUpErrorLabel.setText("Error during sign-up. Please try again.");
+            showAlert("Error", "Error during sign-up. Please try again.", Alert.AlertType.ERROR);
         }
     }
 
@@ -100,7 +106,7 @@ public class LoginController {
             stage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
-            errorLabel.setText("Failed to load main application.");
+            showAlert("Error", "Failed to load main application.", Alert.AlertType.ERROR);
         }
     }
 
@@ -116,6 +122,7 @@ public class LoginController {
             window.setScene(signUpScene);
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Failed to load sign-up page.", Alert.AlertType.ERROR);
         }
     }
 
@@ -131,8 +138,10 @@ public class LoginController {
             window.setScene(loginScene);
         } catch (IOException e) {
             e.printStackTrace();
+            showAlert("Error", "Failed to load login page.", Alert.AlertType.ERROR);
         }
     }
+
     @FXML
     public void handleBackToLogin(ActionEvent event) throws IOException {
         Parent loginView = FXMLLoader.load(getClass().getResource("/Login.fxml"));
@@ -140,5 +149,26 @@ public class LoginController {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(loginScene);
         window.show();
+    }
+
+    /**
+     * Shows an alert message.
+     */
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    /**
+     * Validates the email format using a regular expression.
+     */
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
