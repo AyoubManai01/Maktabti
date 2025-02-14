@@ -1,0 +1,154 @@
+/* Base styling */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #f0f2f5;
+}
+
+/* Side panel styling */
+.side-panel {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e6e6e6;
+    -fx-padding: 20;
+}
+
+/* Side button styling */
+.side-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A90E2;
+    -fx-font-size: 16;
+    /* Set min/max widths so the button always fills its container */
+    -fx-min-width: 210;
+    -fx-max-width: 230;
+    -fx-alignment: center;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    /* Add a subtle effect for a smoother visual change */
+    -fx-effect: null;
+}
+
+.side-button:hover {
+    -fx-background-color: #f0f2f5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 2);
+}
+
+.side-button:pressed {
+    -fx-background-color: #e0e2e5;
+}
+
+/* General Styling */
+* {
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+}
+
+.table-view {
+    -fx-background-color: #f4f4f9;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-padding: 8px;
+    -fx-border-color: #e0e0e0;
+}
+
+.input-field {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-focus-color: #4caf50;
+}
+
+.combo-box {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-focus-color: #4caf50;
+}
+
+.button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #4caf50;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #388e3c;
+}
+
+/* Layout adjustments */
+AnchorPane {
+    -fx-background-color: #fafafa;
+    -fx-padding: 20px;
+}
+
+.text-field,
+.password-field,
+.combo-box {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c8c8c8;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+/* Alert dialog styling */
+.custom-alert {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #F0F8FF;
+}
+
+.dialog-pane {
+    -fx-background-color: #F0F8FF;
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #00008B;
+}
+
+.dialog-pane .button {
+    -fx-background-color: #4682B4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* styles.css */
+.custom-alert .alert-content {
+    font-size: 14px;
+    color: #d32f2f; /* Red for error messages */
+}
+
+.custom-alert .alert-header {
+    background-color: #f44336;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+
+.custom-alert .button {
+    background-color: #d32f2f;
+    color: white;
+    font-size: 14px;
+}
+Dispose d’un menu contextuel
