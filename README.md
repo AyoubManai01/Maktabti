@@ -34,7 +34,7 @@
 
 - Java Development Kit (JDK) 17 or later
 - MySQL Server
-- Maven
+- Apache Maven
 - IDE (IntelliJ IDEA, Eclipse, or similar)
 
 ### Clone the repository
